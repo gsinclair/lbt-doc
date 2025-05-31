@@ -131,7 +131,7 @@ impl.lbt_example_tcolorbox = function(args)
   if args.output == nil then
     return F(impl.tcolorbox_template1, '', args.input)
   else
-    return F(impl.tcolorbox_template2, orientation, args.input, args.scale, args.output)
+    return F(impl.tcolorbox_template2, orientation, args.input, args.output)
   end
 end
 
@@ -153,10 +153,9 @@ impl.tcolorbox_template2 = [[
       \end{Verbatim}
     \end{small}
     \tcblower
-    \scalebox{%s}{%%
     \begin{small}
       %s
-    \end{small}}
+    \end{small}
   \end{tcolorbox}
 ]]
 

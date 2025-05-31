@@ -2,3 +2,4 @@
 *.log
 *.debuglog
 lbt-expansions/
+*.pdf

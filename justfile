@@ -15,12 +15,12 @@ default:
 # Build _the_ Latex file in this project directory.
 [no-cd]
 build:
-  ../Common/build.sh {{project}}
+  ../etc/build.sh {{project}}
 
 # Build a named file.
 [no-cd]
 build-specific filename:
-  ../Common/build.sh {{filename}}
+  ../etc/build.sh {{filename}}
 
 # Edit main file and all chapter files in nvim.
 [no-cd]
