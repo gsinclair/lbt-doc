@@ -7,3 +7,9 @@ It contains two parts:
 * "LBT Manual", which is not yet started.
 
 (Status above as at 31 May 2025.)
+
+## Build instructions
+
+    cd lbt-by-example
+    just build
+    # open lbt-by-example.pdf
