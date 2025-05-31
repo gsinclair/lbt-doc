@@ -1,0 +1,62 @@
+
+\begin{lbt}
+  [@META]
+    TEMPLATE  lbt.Doc.Chapter
+    TITLE     Worksheet or exam questions with lbt.Questions
+    LABEL     ch.questions
+    SOURCES   LbtDoc, lbt.Questions
+
+  [+BODY]
+
+    TEXT The \package{lbt.Questions} template offers useful commands for typesetting questions, subquestions, and multiple-choice options.
+
+    TEXT Use \code{Q} for a top-level question and \code{QQ} for a question part (see \cref{ex:questions}).
+
+    LBTEXAMPLE .o horizontal
+    :: (caption) Question parts and subparts
+    :: (label) ex:questions
+    :: .v <<
+      Q Name three different kinds of clouds.
+
+      Q Evaluate the following.
+      QQ $3 + 12 / 4$
+      QQ $(3 + 12) / 4$
+    >>
+
+    TEXT \cref{ex:q-hor} shows the use of \code{QQ*} to lay out questions parts horizontally.
+
+    LBTEXAMPLE .o vertical
+    :: (caption) Arranging question parts horizontally
+    :: (label) ex:q-hor
+    :: .v <<
+      Q How many vowels appear in each word?
+      QQ* [ncols=3]
+      :: appear :: Augustine :: crimson :: toast :: glyph :: transformer
+    >>
+
+    TEXT Use \code{MC} or \code{MC*} to lay out \textbf{multiple-choice options} (see \cref{ex:q-mc}).
+
+    LBTEXAMPLE .o vertical
+    :: (caption) Multiple choice answers
+    :: (label) ex:q-mc
+    :: .v <<
+      Q Which planet of the solar system has the most moons?
+      MC Earth :: Mars :: Jupiter :: Saturn
+
+      Q Which planet of the solar system has the fewest moons?
+      MC* [ncols=4] :: Mercury :: Venus :: Uranus :: Neptune
+    >>
+
+    TEXT A question can have a \textbf{source} and/or a \textbf{note} preceding the text, and you can change the colour of the question marker (see \cref{ex:q-source-notes}).
+
+    LBTEXAMPLE .o vertical
+    :: (caption) Question source and notes
+    :: (label) ex:q-source-notes
+    :: .v <<
+      Q .o color=purple :: (source) HSC 2005 :: (note) sigma notation
+      :: Evaluate $\displaystyle \sum_{n=3}^5 (2n+1)$.
+    >>
+
+    TEXT If you want \emph{all} questions in your document to have a purple marker, you can include the line \texttt{OPTIONS  Q.color = purple} in the \texttt{[@META]} part of your \lbtlogo{} environment.
+
+\end{lbt}

@@ -1,0 +1,18 @@
+\contentsline {example}{\numberline {1.1}{\ignorespaces Chapters, sections and plain text paragraphs\relax }}{3}{}%
+\contentsline {example}{\numberline {1.2}{\ignorespaces {\color {commandcolor}{\ttfamily \addfontfeature {RawFeature={+qtbye,-tlig}} TEXT}} (single and multiple paragraphs) and {\color {commandcolor}{\ttfamily \addfontfeature {RawFeature={+qtbye,-tlig}} VSPACE}}\relax }}{3}{}%
+\contentsline {example}{\numberline {1.3}{\ignorespaces Using {\color {commandcolor}{\ttfamily \addfontfeature {RawFeature={+qtbye,-tlig}} VSTRETCH}} to spread out paragraphs on a page\relax }}{4}{}%
+\contentsline {example}{\numberline {1.4}{\ignorespaces An itemized list\relax }}{4}{}%
+\contentsline {example}{\numberline {1.5}{\ignorespaces An enumerated list\relax }}{5}{}%
+\contentsline {example}{\numberline {1.6}{\ignorespaces A compact enumerated list with custom label\relax }}{5}{}%
+\contentsline {example}{\numberline {1.7}{\ignorespaces A custom shopping list\relax }}{6}{}%
+\contentsline {example}{\numberline {1.8}{\ignorespaces A mutli-level list\relax }}{7}{}%
+\contentsline {example}{\numberline {1.9}{\ignorespaces Simple table example\relax }}{8}{}%
+\contentsline {example}{\numberline {1.10}{\ignorespaces Simple table example with more formatting\relax }}{9}{}%
+\contentsline {example}{\numberline {1.11}{\ignorespaces Table with spacing, color, math mode and lines\relax }}{10}{}%
+\contentsline {example}{\numberline {1.12}{\ignorespaces Table with data loaded from a file\relax }}{11}{}%
+\contentsline {example}{\numberline {1.13}{\ignorespaces Using {\color {commandcolor}{\ttfamily \addfontfeature {RawFeature={+qtbye,-tlig}} INDENT}} to adjust left and (optionally) right margins\relax }}{11}{}%
+\contentsline {example}{\numberline {1.14}{\ignorespaces Left, center and right justification\relax }}{12}{}%
+\contentsline {example}{\numberline {2.1}{\ignorespaces Question parts and subparts\relax }}{13}{}%
+\contentsline {example}{\numberline {2.2}{\ignorespaces Arranging question parts horizontally\relax }}{14}{}%
+\contentsline {example}{\numberline {2.3}{\ignorespaces Multiple choice answers\relax }}{14}{}%
+\contentsline {example}{\numberline {2.4}{\ignorespaces Question source and notes\relax }}{15}{}%

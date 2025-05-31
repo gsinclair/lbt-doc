@@ -1,0 +1,160 @@
+\documentclass[12pt,oneside]{memoir}
+
+\title{LBT by Example}
+\author{Gavin Sinclair}
+\date{May 2025}
+
+% [[[ Paper size and layout ---------------------------------------------------------
+% Page size: a gentle vertical rectangle for comfortable screen viewing
+\setstocksize{270mm}{210mm}            % Slightly shorter than A4
+\settrimmedsize{270mm}{210mm}{*}       % Center the trimmed page
+
+% Typeblock: a generous text area that avoids long line lengths
+\settypeblocksize{220mm}{140mm}{*}     % Height, width, vertical centering
+\setlrmargins{*}{*}{1.2}               % Left-right margins, symmetrical
+\setulmargins{*}{*}{1.2}               % Top-bottom margins
+
+% Header and footer space
+\setheadfoot{14pt}{20pt}               % Room for headers and footers
+\setheaderspaces{*}{*}{1.2}            % Balanced spacing
+
+% Finalise the layout
+\checkandfixthelayout
+% ]]]
+
+% [[[ Packages and settings that directly affect appearance -------------------------
+\usepackage{lbt}
+  \lbtSettings{
+    LogChannels = all,
+    DraftMode = false,
+    HaltOnWarning = true,
+  }
+  \lbtLoadTemplates{PWD/../Common/lbt-templates}
+  \lbtGlobalOpargs{
+    vector.format = bold,
+    LBTEXAMPLE.shrinkmargin = 3em,
+    LBTEXAMPLE.float = true,
+    LBTEXAMPLE.position = tbp,
+  }
+
+\usepackage[svgnames]{xcolor}
+  \definecolor{commandcolor}{RGB}{20, 40, 100}
+  \definecolor{captioncolor}{RGB}{40, 60, 120}
+  \definecolor{lbtTodo}{RGB}{200, 30, 30}
+
+\usepackage{float}
+  \newfloat{example}{p}{loe}[chapter]
+  \floatname{example}{Example}
+
+\usepackage{caption}[2022/02/20]
+  \captionsetup[example]{
+    font = {small, sf, color=captioncolor},
+    labelfont = bf,
+    labelsep = quad,
+    justification = raggedleft,
+    singlelinecheck = false,
+    position = below,
+    skip = 4pt,
+  }
+
+\usepackage{fontspec, unicode-math}
+  %% % Serif font: fbb (https://ctan.org/pkg/fbb)
+  %% \setmainfont[%
+  %% UprightFeatures={StylisticSet=01},
+  %% BoldFeatures={StylisticSet=01},
+  %% ]{fbb}
+  % Serif font: Libertinus Serif
+\setmainfont{Tex Gyre Termes}[Scale=1.083]
+  % Math font: Libertinus math (https://github.com/alif-type/libertinus)
+  \setmathfont{Libertinus Math}    % removed option AutoFakeBold
+  % Sans-serif font: Gillius ADF (http://arkandis.tuxfamily.org/adffonts.html)
+  \setsansfont{GilliusADF}         % removed option Numbers=OldStyle
+  % Monospaced font: Inconsolata (https://www.ctan.org/pkg/inconsolata)
+  \setmonofont{DejaVu Sans Mono}[Scale=0.9]
+% ]]]
+
+% [[[ General preamble --------------------------------------------------------------
+
+% Sans-serif headings NOTE: these don't work, but see memoir manuaul p. 81
+% \setpartheadstyle{\sffamily\Huge\bfseries}
+% \setchapterheadstyle{\sffamily\huge\bfseries}
+% \setsecheadstyle{\sffamily\Large\bfseries}
+% \setsubsecheadstyle{\sffamily\large\bfseries}
+% \setsubsubsecheadstyle{\sffamily\normalsize\bfseries}
+% \setparagraphheadstyle{\sffamily\normalsize\bfseries}
+% \setsubparagraphheadstyle{\sffamily\normalsize\bfseries}
+
+% Language and spacing
+\usepackage[english]{babel}
+\usepackage{microtype}
+\usepackage{luaquotes}
+
+% Chapter style
+\chapterstyle{hangnum}  % or 'default', 'veelo', 'dash', 'section' etc.
+
+% Fancy headers (built-in)
+\pagestyle{ruled}  % or 'plain', 'headings', 'companion', etc.
+
+% Hyperlinks
+% \usepackage[colorlinks=true,linkcolor=blue]{hyperref}
+
+% Frames for examples
+\usepackage{tcolorbox}
+
+% References to examples
+\usepackage{cleveref}
+  \crefformat{example}{\textsf{\small\bfseries\color{captioncolor}#2Example~#1#3}}
+  \Crefformat{example}{\textsf{\small\bfseries\color{captioncolor}Example~#2#1#3}}
+
+% ]]]
+
+% [[[ Document commands ------------------------------------------------------------
+\newcommand{\package}[1]{{\color{commandcolor}\textsf{#1}}}
+\newcommand{\code}[1]{{\color{commandcolor}\texttt{#1}}}
+\newcommand{\boldcode}[1]{{\bfseries\color{commandcolor}\texttt{#1}}}
+\newcommand{\lbtlogo}{\textsc{lbt}}
+\newcommand{\qq}[1]{``#1''}
+\newcommand{\q}[1]{`#1'}
+\newcommand{\lbtTodo}[1]{{\color{lbtTodo}\textbf{TODO:} #1}}
+\newcommand{\latexcmd}[1]{\code{\textbackslash{}#1}}
+% ]]]
+
+% [[[ Necessities for examples -----------------------------------------------------
+\UseTblrLibrary{booktabs}
+\UseTblrLibrary{siunitx}
+% ]]]
+
+\begin{document} % -----------------------------------------------------------------
+
+\frontmatter  % Roman numbering (i, ii, ...) for TOC, preface, etc.
+
+\begin{titlingpage}
+  \centering
+  \vspace*{3cm}
+  {\Huge LBT by Example\par}
+  \vspace{1cm}
+  {\large Gavin Sinclair\par}
+  \vfill
+  {\large May 2025\par}
+\end{titlingpage}
+
+\tableofcontents
+\listof{example}{List of Examples}
+
+\mainmatter   % Arabic numbering (1, 2, ...) begins
+
+\part{Using the built-in templates}
+
+\include{chapters/1-1-basic}
+\include{chapters/1-2-questions}
+
+\part{Creating a new template}
+
+\part{Miscellaneous features}
+
+\appendix
+
+\backmatter
+% bibliography, colophon, index, etc.
+
+\end{document}

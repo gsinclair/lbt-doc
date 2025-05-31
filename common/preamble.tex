@@ -1,0 +1,141 @@
+% --- Packages
+\usepackage{setspace}    % setstretch command to provide extra line spacing
+\usepackage{xspace,fbox}
+\usepackage{luaquotes}   % automatic typographical quotes, and '' in texttt
+\usepackage{xifthen}     % used in 'oneline' macro in this file
+\usepackage{graphicx}    % used in 'oneline' macro in this file [resizebox?]
+\usepackage{emoji}
+\usepackage{awesomebox}  % \notebox, \warningbox
+\usepackage{tkz-fct}
+\usepackage{import}
+\usepackage{tabto}
+\usepackage[export]{adjustbox}     % allow for 'right' option in \includegraphics
+\usepackage[hang,flushmargin]{footmisc}
+\usepackage{hyperref}
+
+% NOT included: bm for boldface mathematical text. That is for legacy fonts.
+% If I am using Tex Gyre Pagella Math, for instance, then that is a modern OTF font.
+% The unicode-math package provides \symbf{...} for bold text, and symit, stmsf, symbfit, symsfbf
+% (according to ChatGPT).
+\newcommand{\bm}[1]{\symbf{#1}} 
+
+\hypersetup{
+    colorlinks,
+    linkcolor={red!50!black},
+    citecolor={blue!50!black},
+    urlcolor={blue!80!black}
+}
+
+% --- Margin and page style
+\pagestyle{empty}
+\setlrmarginsandblock{2.5cm}{2.5cm}{*}
+\setulmarginsandblock{2.5cm}{*}{1}
+\checkandfixthelayout
+
+% --- Command to squeeze some text down to one line.
+%     Good for when a sentence _just_ goes over.
+%     Source: https://gist.github.com/malloc47/5298181
+\newcommand{\oneline}[1]{%
+  \newdimen{\namewidth}%
+  \setlength{\namewidth}{\widthof{#1}}%
+  \ifthenelse{\lengthtest{\namewidth < \textwidth}}%
+  {#1}% do nothing if shorter than text width
+  {\resizebox{\textwidth}{!}{#1}}% scale down
+}
+
+% --- Convenience commands -------------------------------------
+\DeclareMathOperator{\cis}{cis}
+% \DeclareMathOperator{\gcd}{gcd}
+\DeclareMathOperator{\LCM}{lcm}
+\renewcommand{\Re}{\operatorname{Re}}
+\renewcommand{\Im}{\operatorname{Im}}
+\newcommand{\ds}{\displaystyle}
+
+\newcommand{\percent}{\%}
+
+% --- \pt{a} gives (a); \pt{b} gives (b); etc. If it's not (a), there will be space before.
+%     This is meant for writing hints.
+%     TODO: consider making this a macro in LBT. It's risky to use a name like 'pt'.
+\newcommand{\pt}[1]{\textbf{\ifstrequal{#1}{a}{(#1)~}{\enspace (#1)~}}}
+
+% --- Quoting and quadding.
+\newcommand{\q}[1]{`#1'}
+\newcommand{\qq}[1]{``#1''}
+\newcommand{\qqquad}{\quad\quad\quad}
+\newcommand{\qqqquad}{\quad\quad\quad\quad}
+
+% --- Brackets
+\newcommand{\br}[1]{\left( #1 \right)}
+\newcommand{\sqbr}[1]{\left[ #1 \right]}
+\newcommand{\sqbrtext}[1]{\[ #1 \]}
+
+% --- Fractions
+\newcommand{\half}{\tfrac12}
+\newcommand{\third}{\tfrac13}
+\newcommand{\quarter}{\tfrac14}
+\newcommand{\twothirds}{\tfrac23}
+\newcommand{\threequarters}{\tfrac34}
+
+% --- Fractions involving pi
+\newcommand{\pitwo}{\frac \pi 2}
+\newcommand{\pithree}{\frac \pi 3}
+\newcommand{\pifour}{\frac \pi 4}
+\newcommand{\pifive}{\frac \pi 5}
+\newcommand{\pisix}{\frac \pi 6}
+\newcommand{\piseven}{\frac \pi 7}
+\newcommand{\pieight}{\frac \pi 8}
+
+\newcommand{\pitwothree}{\frac {2\pi} 3}
+\newcommand{\pithreefour}{\frac {3\pi} 4}
+
+% Reciprocal fractions (shorthand for 1 over ...)
+\newcommand{\recip}{\frac1}
+
+% --- Derivatives
+\newcommand{\deriv}[2][x]{\frac{d}{d#1} #2}
+\newcommand{\ddx}{\tfrac{d}{dx}}
+\newcommand{\derivative}[2]{\frac{d#1}{d#2}}
+\newcommand{\secondderivative}[2]{\frac{d^2 #1}{d#2^2}}
+
+% --- Set
+\newcommand{\set}[1]{\left\{ #1 \right\}}
+
+% --- Absolute value
+\newcommand{\abs}[1]{\left| #1 \right|}
+
+% --- Units
+\newcommand{\m}{\,\unit{m}}
+\newcommand{\mps}{\,\unit{m.s^{-1}}}
+\newcommand{\mpsps}{\,\unit{m.s^{-2}}}
+\newcommand{\kg}{\,\unit{kg}}
+\newcommand{\km}{\,\unit{km}}
+\newcommand{\kmh}{\,\unit{km.h^{-1}}}
+
+% --- Conjugates (bar)
+\newcommand{\zbar}{\ensuremath{\overline{z}}}
+\newcommand{\wbar}{\ensuremath{\overline{w}}}
+
+% --- e to the i pi on ...
+\newcommand{\eipi}[2][]{e^{i\frac{#1\pi}{#2}}}
+\newcommand{\eitheta}{\ensuremath{e^{i\theta}}}
+
+% --- Inverse sin, cos, tan
+\newcommand{\invsin}{\sin^{-1}}
+\newcommand{\invcos}{\cos^{-1}}
+\newcommand{\invtan}{\tan^{-1}}
+
+% --- cos theta etc
+\newcommand{\sintheta}{\sin\theta}
+\newcommand{\costheta}{\cos\theta}
+\newcommand{\tantheta}{\tan\theta}
+
+% --- ln with || or ()
+\newcommand{\lnabs}[1]{\ln\abs{#1}}
+\newcommand{\lnbr}[1]{\ln\br{#1}}
+
+% --- sets: naturals, integers, reals, ...
+\newcommand{\bbN}{\mathbb{N}}
+\newcommand{\bbZ}{\mathbb{Z}}
+\newcommand{\bbQ}{\mathbb{Q}}
+\newcommand{\bbR}{\mathbb{R}}
+\newcommand{\bbC}{\mathbb{C}}

@@ -1,0 +1,4 @@
+*.aux
+*.log
+*.debuglog
+lbt-expansions/

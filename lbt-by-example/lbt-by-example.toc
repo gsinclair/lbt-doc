@@ -1,0 +1,15 @@
+\babel@toc {english}{}\relax 
+\contentsline {chapter}{Contents}{i}{}%
+\contentsline {part}{\partnumberline {I}Using the built-in templates}{1}{}%
+\contentsline {chapter}{\chapternumberline {1}Core commands in lbt.Basic}{2}{}%
+\contentsline {section}{\numberline {1.1}Document divisions}{2}{}%
+\contentsline {section}{\numberline {1.2}Ordinary text and whitespace}{2}{}%
+\contentsline {section}{\numberline {1.3}Itemized and enumerated lists}{4}{}%
+\contentsline {section}{\numberline {1.4}Description lists}{5}{}%
+\contentsline {section}{\numberline {1.5}Automatic multi-level lists}{6}{}%
+\contentsline {section}{\numberline {1.6}Tables}{6}{}%
+\contentsline {subsection}{Loading table data from a file}{8}{}%
+\contentsline {section}{\numberline {1.7}Margins and justification}{8}{}%
+\contentsline {chapter}{\chapternumberline {2}Worksheet or exam questions with lbt.Questions}{13}{}%
+\contentsline {part}{\partnumberline {II}Creating a new template}{16}{}%
+\contentsline {part}{\partnumberline {III}Miscellaneous features}{17}{}%
