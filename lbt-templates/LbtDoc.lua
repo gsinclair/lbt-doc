@@ -159,10 +159,13 @@ impl.tcolorbox_template2 = [[
   \end{tcolorbox}
 ]]
 
+-- sub_spec will be something like XX/>>
+-- (replace XX with >>)
+-- Note the use of / as a separator
 impl.perform_substitution = function(sub_spec, text)
   if sub_spec == nil then return text end
   local bits = lbt.util.split(sub_spec, '/')
-  local a, b = bits[2], bits[3]
+  local a, b = bits[1], bits[2]
   local x = text:gsub(a, b)
   return x
 end

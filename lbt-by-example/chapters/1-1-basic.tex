@@ -104,4 +104,47 @@
     STO sep :: 1 :: {:}{:}
     NOTE The examples show that \code{INDENT} and \code{CENTER}, et cetera, operate only on the paragraph(s) given to them. This raises a question: how do you center, say, a whole block of \lbtlogo{} code? \par There are two answers. First, you could manually invoke the \code{center} environment with \code{BEGIN center}, then place your code, then \code{END center}. This is low-level and not in the spirit of \lbtlogo. The second option is to put all your content in a register with \code{STO .o lbt ◊sep content ◊sep .v << ... >>}, and then use \code{CENTER ◊content}. \par \lbtTodo{For this documentation, readers should be directed to a section that demonstrates STO in detail.}
 
+
+    % ----------------------------------------------- Other stuff...
+    SECTION Other stuff\dots
+
+    TEXT This is a placeholder.
+
+    % ----------------------------------------------- Passing content through to Latex
+    SECTION Passing content through to Latex
+
+    TEXT
+    :: The \code{LATEX} command is simple: it allows you to pass plain Latex code through to the compiler. This is already achievable with the \code{TEXT} or \code{TEXT*} command, but the name \code{LATEX} better represents the intention.
+    :: Recall\footnote{\lbtNote{This is not actually documented anywhere yet}} that \code{CMD} exists for single commands, so cases like \code{CMD bigskip} are already taken care of. Assuming, then, that you want to pass something more complicated through to Latex, the idiomatic way is to use the \code{.v << ... >>} verbatim block, which allows you to include newlines in your code.
+    :: \cref{ex:basic-latex-math} demonstrates typesetting some complex mathematics among some text. Note that \code{MATH} could handle the mathematics just fine, but the example serves to show the purpose of \code{LATEX}.
+
+    LBTEXAMPLE .o vertical
+    :: (caption) Passing Latex code through with \code{LATEX}
+    :: (label) ex:basic-latex-math
+    :: (substitute) XX/>>
+    :: .v <<
+      TEXT We now compute the definite integral of $f(x)$ from $-1$ to $2\pi$:
+      LATEX .v <<
+        \begin{align*}
+        \int_{-1}^{2\pi} f(x)\,dx 
+        &= \int_{-1}^{0} x^2\,dx 
+          + \int_{0}^{\pi} \sin x\,dx 
+          + \int_{\pi}^{2\pi} 1\,dx \\
+        &= \left[\frac{x^3}{3}\right]_{-1}^{0} 
+          + \left[-\cos x\right]_{0}^{\pi} 
+          + \left[x\right]_{\pi}^{2\pi} \\
+        &= \left(0 - \left(-\frac{1}{3}\right)\right) 
+          + \left(-\cos \pi + \cos 0\right) 
+          + \left(2\pi - \pi\right) \\
+        &= \frac{1}{3} + (1 + 1) + \pi \\
+        &= \frac{1}{3} + 2 + \pi
+        \end{align*}
+      XX
+    >>
+
+
+
+    
+
+
 \end{lbt}

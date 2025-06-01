@@ -116,6 +116,7 @@
 \newcommand{\qq}[1]{``#1''}
 \newcommand{\q}[1]{`#1'}
 \newcommand{\lbtTodo}[1]{{\color{lbtTodo}\textbf{TODO:} #1}}
+\newcommand{\lbtNote}[1]{{\color{lbtTodo}\textbf{NB:} #1}}
 \newcommand{\latexcmd}[1]{\code{\textbackslash{}#1}}
 % ]]]
 
@@ -128,6 +129,7 @@
 
 \frontmatter  % Roman numbering (i, ii, ...) for TOC, preface, etc.
 
+% -------------------------------------------------- Title page
 \begin{titlingpage}
   \centering
   \vspace*{3cm}
@@ -138,21 +140,35 @@
   {\large May 2025\par}
 \end{titlingpage}
 
-\tableofcontents
+% -------------------------------------------------- Contents and examples
+% \begingroup
+%   \let\addcontentsline\relax
+%   \tableofcontents
+% \endgroup
+\tableofcontents*
 \listof{example}{List of Examples}
 
+% -------------------------------------------------- Preface and Introduction
+\include{chapters/0-preface}
+\include{chapters/0-introduction}
+
+% -------------------------------------------------- Main matter
 \mainmatter   % Arabic numbering (1, 2, ...) begins
 
-\part{Using the built-in templates}
+\part{Core templates}
 
 \include{chapters/1-1-basic}
 \include{chapters/1-2-lists-tables}
-\include{chapters/1-3-questions}
+
+\part{Non-core built-in templates}
+
+\include{chapters/2-questions}
 
 \part{Creating a new template}
 
-\part{Miscellaneous features}
+\part{Extra features}
 
+% -------------------------------------------------- Back matter
 \appendix
 
 \backmatter
