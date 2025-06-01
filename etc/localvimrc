@@ -7,3 +7,7 @@ nmap ,, <leader>br
 
 inoremap ,l ◊
 inoremap ,, ,
+
+inoremap ,c \code{}<Left>
+inoremap ,r \cref{}<Left>
+inoremap ,p \package{}<Left>

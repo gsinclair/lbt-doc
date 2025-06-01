@@ -2,7 +2,7 @@
   !DEBUG
   [@META]
     TEMPLATE lbt.Doc.Chapter
-    TITLE Core commands in lbt.Basic
+    TITLE Core commands
     LABEL ch.basic
     SOURCES LbtDoc
 
@@ -11,8 +11,10 @@
     ITEMIZE .o compact
     :: document divisions (part, chapter, section, subsection, subsubsection, paragraph, subparagraph)
     :: low-level typesetting facilities (vertical space, arbitrary commands and environments, flushleft, flushright, center)
-    :: things you expect in normal Latex editing, whether built in or using a common plugin (lists, tables, columns, verbatim, various math environments)
+    :: things you expect in normal Latex editing, whether built in or using a common plugin (columns, verbatim, various math environments)
     :: things that are generally useful (include PDF pages, three levels of headings, place two items side-by-side)
+
+    TEXT It also implements lists and tables, which are demonstrated in \cref{ch:liststables}.
 
     % ------------------------------------------------------------ Document divisions
     SECTION Document divisions
@@ -67,176 +69,6 @@
     >>
 
     TEXT The \code{CLEARPAGE} is necessary to ensure that all vertical space on the page is used.
-
-    % ----------------------------------------------- Itemized and enumerated lists
-    SECTION Itemized and enumerated lists
-
-    TEXT The paragraphs in \cref{ex:basic-text} would be better written as a list. \cref{ex:basic-list-1} shows the chess quotes in an itemized list. \cref{ex:basic-list-2} enumerates some principles of chess opening theory.
-
-    LBTEXAMPLE .o vertical
-    :: (caption) An itemized list
-    :: (label) ex:basic-list-1
-    :: .v <<
-      TEXT Emanual Lasker wrote some punchy sentences in his \emph{Manual of Chess} (1925):
-      ITEMIZE
-      :: The chessboard is the world; the pieces are the phenomena of the universe; the rules of the game are what we call the laws of Nature.
-      :: The beauty of a move lies not in its appearance but in the thought behind it.
-      :: In chess, as in life, a man is his own most dangerous opponent.
-    >>
-
-    LBTEXAMPLE .o vertical
-    :: (caption) An enumerated list
-    :: (label) ex:basic-list-2
-    :: .v <<
-      TEXT An experienced player has three key objectives in the opening.
-      ENUMERATE
-      :: Focus pawns and/or pieces on the central four squares.
-      :: Activate the minor pieces.
-      :: Castle.
-    >>
-
-    TEXT
-    :: \code{ITEMIZE} and \code{ENUMERATE} use the \package{enumitem} package in the backgound. You can use the kwarg \code{spec} to pass options through to the underlying \code{itemize} or \code{enumerate} environment. Further, the oparg \code{compact} provides an easy way to tighten the list, as \cref{ex:basic-list-3} demonstrates.
-    :: You can also use opargs \code{notop} and \code{sep} to control vertical space in a more specific but still convenient way. See the documentation.
-    :: Finally, using \package{enumitem}'s \code{newlist} and \code{setlist} commands, you can define your own list style with the formatting you require. Suppose you now have a \code{shoppinglist} environment. You can make use of that with the \code{env} oparg. This is demonstrated in \cref{ex:basic-list-custom}
-
-    LBTEXAMPLE .o vertical
-    :: (caption) A compact enumerated list with custom label
-    :: (label) ex:basic-list-3
-    :: .v <<
-      TEXT An experienced player has three key objectives in the opening.
-      ENUMERATE .o compact :: (spec) (1)
-      :: Focus pawns and/or pieces on the central four squares.
-      :: Activate the minor pieces.
-      :: Castle.
-    >>
-
-    LBTEXAMPLE .o vertical
-    :: (caption) A custom shopping list
-    :: (label) ex:basic-list-custom
-    :: .v <<
-      CMD newlist :: shoppinglist :: itemize :: 1
-      CMD setlist :: [shoppinglist]
-      :: label=\ding{111}, left=4pt, itemsep = 2pt, topsep = 2pt
-
-      TEXT Things to buy on the way home:
-      ITEMIZE .o env = shoppinglist
-      :: oat milk
-      :: tofu
-      :: vegan cheese
-    >>
-
-    % ----------------------------------------------- Description lists
-    SECTION Description lists
-
-    NOTE These are not implemented yet. Watch this space.
-
-    % ----------------------------------------------- Automatic multi-level lists
-    SECTION Automatic multi-level lists
-
-    TEXT
-    :: If you want to typeset a multi-level list using standard Latex environments, you will end up with a lot of boilerplate. The \lbtlogo{} command \code{LIST} offers great convenience, as \cref{ex:basic-list-multi} demonstrates.
-    :: The markers chosen are not a great fit for the list content, but they show some of the possibilities. The \code{49} refers to the dingbats provided by the \package{pifont} package. See the documentation for more details.
-
-    LBTEXAMPLE .o horizontal
-    :: (caption) A mutli-level list
-    :: (label) ex:basic-list-multi
-    :: .v <<
-      LIST .o markers = circnum * 49
-      :: Fruits
-      :: * Citrus
-      :: * * Orange
-      :: * * Lemon
-      :: * * Lime
-      :: * Berries
-      :: * * Strawberry
-      :: * * Blueberry
-      :: Vegetables
-      :: * Leafy greens
-      :: * * Spinach
-      :: * * Kale
-      :: * Root vegetables
-      :: * * Carrot
-      :: * * Beetroot
-      :: * * Potato
-    >>
-
-    % ----------------------------------------------- Tables
-    SECTION Tables
-
-    STO fn1 :: 1 :: If you really want \lbtlogo{} to support \package{tabularx} or something else, feel free to request it. Of course, you can implement it yourself, too.
-    TEXT
-    :: \lbtlogo{} makes an opinionated choice that tables are best set using \package{tabularray}.\footnote{◊fn1} The \code{TABLE} command is a light layer over a \code{tblr} environment. You provide all the specifications (details of column alignment and cell formatting) in the mandatory \code{spec} kwarg.
-    :: \cref{ex:basic-table-1} shows left, center and right column alignment, and bold top-row headings, and a horizontal line between the headings and the data. This is a very simple table.
-    :: \cref{ex:basic-table-2} improves on the above by using the \package{booktabs} library to gain access to \latexcmd{toprule}, \latexcmd{midrule} and \latexcmd{bottomrule}. It also introduces some padding to the third column, and increases the row separation.
-    :: Most tables created with Latex are for displaying information in articles or books. But tables can be used for other purposes, such as educational handouts. \cref{ex:basic-table-3} demonstrates the use of space (setting column widths and row heights) and background colour. It also puts most cells in math mode, and shows all borders.
-    :: It takes a bit of digging in the \package{tabularray} manual to find the right incantations to make all this happen, but ultimately it is easier to achieve the desired results with this package than with any other. And if you need multiple tables with the same format, it is easy to create your own table type with \latexcmd{NewTblrEnviron}. If you created an \code{invoice} table, for instance, you could invoke it with \code{TABLE .o invoice}.
-
-    NOTE No attempt has been made so far to create tables with spanning cells. Whether any specific support from \lbtlogo{} is required remains to be seen.
-
-    NOTE The thing about \code{TABLE .o invoice} is a bald-faced lie. That needs to be implemented. (Easy, though.)
-
-    SUBSECTION Loading table data from a file
-
-    TEXT The \code{TABLE} command makes it easy to load CSV or TSV data from a file and use it as the rows of the table. \cref{ex:basic-table-dataload} demonstrates this with cumulative normal distribution values, which are clearly better located in a data file than in a Latex file.
-
-    LBTEXAMPLE .o vertical
-    :: (caption) Simple table example
-    :: (label) ex:basic-table-1
-    :: .v <<
-      TABLE .o center :: (spec) colspec = {l c r},
-        » row{1}={font=\bfseries}
-      :: Author & Year of Birth & Published Works
-      :: \hline
-      :: William Shakespeare & 1564 & 39
-      :: Jane Austen         & 1775 & 7
-      :: Charles Dickens     & 1812 & 20
-      :: Leo Tolstoy         & 1828 & 48
-    >>
-
-    LBTEXAMPLE .o vertical
-    :: (caption) Simple table example with more formatting
-    :: (label) ex:basic-table-2
-    :: .v <<
-      TABLE .o center :: (spec) colspec = {l c r},
-      » row{1}={font=\bfseries}, cell{2-Z}{3}={appto=\hspace*{3em}}, rowsep=3pt
-      :: \toprule
-      :: Author & Year of Birth & Published Works
-      :: \midrule
-      :: William Shakespeare & 1564 & 39
-      :: Jane Austen         & 1775 & 7
-      :: Charles Dickens     & 1812 & 20
-      :: Leo Tolstoy         & 1828 & 48
-      :: \bottomrule
-    >>
-
-    LBTEXAMPLE .o vertical
-    :: (caption) Table with spacing, color, math mode and lines
-    :: (label) ex:basic-table-3
-    :: .v <<
-      TABLE .o center :: (spec) colspec = {cccc}, hlines, vlines, row{2-Z}={7mm, mode=math},
-      » column{1-2}={2cm}, column{3-4}={3cm}, row{1}={bg=Turquoise!35, font=\bfseries}
-      :: Sum & Product
-      :: 11 & 18 & 9+2=11 & 9\times2=18
-      :: 21 & 110 & 10+11=21 & 10\times11=110
-      :: 12 & 36
-      :: 18 & 77
-      :: 16 & 48
-      :: 13 & 40
-    >>
-
-    LBTEXAMPLE .o vertical, scale = 0.9
-    :: (caption) Table with data loaded from a file
-    :: (label) ex:basic-table-dataload
-    :: .v <<
-      TABLE .o centre
-      :: (spec) colspec={rrrrrrrrrrr}, hlines, vlines,
-      »    column{1}={bg=gray9, font=\bfseries}, row{1} = {bg=gray9, font=\itshape},
-      »    cell{1}{1} = {mode=math}
-      :: (datafile) media/standard-normal-cumulative.tsv
-      :: @datarows 1
-      :: @datarows 22..27
-    >>
 
 
 

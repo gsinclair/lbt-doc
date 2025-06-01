@@ -3,3 +3,5 @@
 *.debuglog
 lbt-expansions/
 *.pdf
+*.loe
+*.toc
