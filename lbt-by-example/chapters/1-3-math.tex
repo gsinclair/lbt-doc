@@ -1,0 +1,32 @@
+\begin{lbt}
+  [@META]
+    TEMPLATE lbt.Doc.Chapter
+    TITLE Mathematical text \textsf{(lbt.Math)}
+    LABEL ch.math
+    SOURCES LbtDoc, lbt.Math
+
+  [+BODY]
+    TEXT The \package{lbt.Math} template provides several affordances for typing mathematical text.
+    ITEMIZE .o compact
+    :: The \code{simplemath} macro is a replacement for the inline and display math environments \Verb|$ ... $| and \Verb|$$ .. $$| (or their Latex equivalents). It allows you to type mathematical text more succinctly and with fewer backslashes.
+    :: The \code{integal} macro simplifies typing definite and indefinite (single) integrals.
+    :: The \code{vector} and \code{vectorijk} macro greatly simplify typing vectors.
+    :: The \code{MATH} command gives you easy access to \package{amsmath}'s collection of environments: align, gather, multiline, \dots
+    :: A collection of macros like \code{mathlistand}, \code{mathsum}, \code{mathseqdots} and several others provide a convenient way to type mathematical text like \qq{\mathlistand{a,b,c}} or \qq{\mathseqdots{y,1,2,3,n}}.
+
+    % ------------------------------------------------------------ The simplemath macro
+    SECTION The \code{simplemath} macro
+
+    % ------------------------------------------------------------ The integral macro
+    SECTION The \code{integral} macro
+
+    % ------------------------------------------------------------ The vector macro and friends
+    SECTION The \code{vector} macro and friends
+
+    % ------------------------------------------------------------ The MATH command
+    SECTION The \code{MATH} command
+
+    % ------------------------------------------------------------ The mathlistand macro and friends
+    SECTION The \code{mathlistand} macro and friends
+
+\end{lbt}

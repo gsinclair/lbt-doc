@@ -22,7 +22,7 @@
 \checkandfixthelayout
 % ]]]
 
-% [[[ Packages and settings that directly affect appearance -------------------------
+% [[[ LBT settings and macro definitions --------------------------------------------
 \usepackage{lbt}
   \lbtSettings{
     LogChannels = all,
@@ -36,11 +36,20 @@
     LBTEXAMPLE.float = true,
     LBTEXAMPLE.position = tbp,
   }
+  % \lbtDefineLatexMacros{V = lbt.Math:vector, sm = lbt.Math:simplemath}
+  \input ../common/lbt_macros.tex
+% ]]]
 
+  % [[[ Packages and settings that directly affect appearance -------------------------
 \usepackage[svgnames]{xcolor}
   \definecolor{commandcolor}{RGB}{20, 40, 100}
   \definecolor{captioncolor}{RGB}{40, 60, 120}
   \definecolor{lbtTodo}{RGB}{200, 30, 30}
+
+\renewcommand*{\cftpartpresnum}{Part~}
+\renewcommand*{\cftpartnumwidth}{4em}  % adjust width as needed
+\renewcommand*{\cftpartfont}{\color{Cerulean}\bfseries}
+\renewcommand*{\cftpartpagefont}{\color{Cerulean}\bfseries}
 
 \usepackage{float}
   \newfloat{example}{p}{loe}[chapter]
@@ -159,6 +168,7 @@
 
 \include{chapters/1-1-basic}
 \include{chapters/1-2-lists-tables}
+\include{chapters/1-3-math}
 
 \part{Non-core built-in templates}
 
