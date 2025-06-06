@@ -71,34 +71,8 @@ f.LBTEXAMPLE = function(_, args, o, kw)
                                            orientation = orientation, scale = o.scale }
   --
   -- (2) Apply 'shrinkmargin' and 'float' options, if appropriate.
-  result_latex = box
-  if o.shrinkmargin then
-    result_latex = T {
-      [[\begin{adjustwidth}{-!SIZE!}{-!SIZE!}]],
-      result_latex,
-      [[\end{adjustwidth}]],
-      values = {
-        SIZE = o.shrinkmargin
-      }
-    }
-  end
-  if o.float then
-    result_latex = T { [[
-        \begin{example}[!POSITION!] !ADJUSTCAPTIONMARGIN!
-          !CONTENT!
-          !CAPTION!
-          \label{!LABEL!}
-        \end{example}
-      ]],
-      values = {
-        ADJUSTCAPTIONMARGIN = impl.adjustcaptionmargin(o),
-        POSITION = o.position,
-        CONTENT = result_latex,
-        CAPTION = kw.caption and F([[\caption{%s}]], kw.caption) or '(caption)',
-        LABEL = kw.label or 'ex:abc',
-      }
-    }
-  end
+  result_latex = impl.apply_shrinkmargin(box, o)
+  result_latex = impl.apply_float(result_latex, o, kw)
   return result_latex
 end
 
@@ -186,6 +160,74 @@ impl.adjustcaptionmargin = function(o)
   else
     return ''
   end
+end
+
+impl.apply_shrinkmargin = function(latex, o)
+  if o.shrinkmargin then
+    return T {
+      [[\begin{adjustwidth}{-!SIZE!}{-!SIZE!}]],
+      latex,
+      [[\end{adjustwidth}]],
+      values = {
+        SIZE = o.shrinkmargin
+      }
+    }
+  else
+    return latex
+  end
+end
+
+impl.apply_float = function(latex, o, kw)
+  if o.float then
+    return T { [[
+        \begin{example}[!POSITION!] !ADJUSTCAPTIONMARGIN!
+          !CONTENT!
+          !CAPTION!
+          \label{!LABEL!}
+        \end{example}
+      ]],
+      values = {
+        ADJUSTCAPTIONMARGIN = impl.adjustcaptionmargin(o),
+        POSITION = o.position,
+        CONTENT = latex,
+        CAPTION = kw.caption and F([[\caption{%s}]], kw.caption) or '(caption)',
+        LABEL = kw.label or 'ex:abc',
+      }
+    }
+  else
+    return latex
+  end
+end
+
+a.EXAMPLETABLE = '1+'
+op.EXAMPLETABLE = { shrinkmargin = 'nil', wrapcell = 'nil' }
+f.EXAMPLETABLE = function(n, args, o, kw)
+  local makerow = function(text)
+    local text2 = text
+    if o.wrapcell == 'sm' then text2 = '\\sm{' .. text .. '}' end
+    return F([[  \Verb|%s| & %s \\ ]], text, text2)
+  end
+  local content = T {
+    [[\begin{tblr}{colspec={X[2,l] X[1,l]}, hlines, vlines, column{1}={font=\small}, rowsep=6pt}]],
+    args:map(function(x) return makerow(x) end):concat('\n'),
+    [[\end{tblr}]],
+  }
+  content = impl.apply_shrinkmargin(content, o)
+  local result = T { [[
+        \begin{example} !ADJUSTCAPTIONMARGIN!
+          !CONTENT!
+          !CAPTION!
+          \label{!LABEL!}
+        \end{example}
+      ]],
+    values = {
+      ADJUSTCAPTIONMARGIN = impl.adjustcaptionmargin(o),
+      CONTENT = content,
+      CAPTION = kw.caption and F([[\caption{%s}]], kw.caption) or '(caption)',
+      LABEL = kw.label or 'ex:abc',
+    }
+  }
+  return result
 end
 
 -- XXX: I think CODESAMPLE is no longer needed.

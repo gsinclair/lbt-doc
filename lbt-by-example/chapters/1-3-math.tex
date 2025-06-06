@@ -21,10 +21,26 @@
     BOX :: \verb|\lbtDefineMacros{sm = lbt.Math:simplemath}|
 
     TEXT
-    :: Typing mathematics in Latex involves a lot of backslashes. With some preprocessing, which is easier in Lua than in Tex, we can improve this and make the resulting document text easier to read and write. Additionally, abbreviations are defined for Greek letters.
-    :: \cref{ex:math-sm-1} demonstrates three keywords (\code{sin}, \code{cos}, \code{equiv})  and two abbreviations \code{al} and \code{th} (for \verb|\alpha| and \verb|\theta|).
+    :: The \code{simplemath} macro stands in for \Verb|$ ... $| or \Verb|$$ .. $$| and allows your to type mathematical text succinctly. It recognises a lot of keywords and abbreviations, meaning far fewer backslashes are needed. For example, you can type \Verb|cos^2 th = 0.25 implies cos th = pm 0.5| instead of \Verb|\cos^2 \theta = 0.25 \Longrightarrow \cos \theta = \pm 0.5|.
+    :: \cref{ex:math-sm-1} demonstrates some keywords (\code{sin}, \code{cos}, \code{equiv}, \code{sum}, \code{frac}, \code{pi}) and some abbreviations \code{al} and \code{th} (for \verb|\alpha| and \verb|\theta|). Also \code{ds} for \verb|\displaystyle|.
     :: \cref{ex:math-sm-2} demonstrates several keywords: \code{forall}, \code{exists}, \code{in}, \code{implies} and \code{text}.
-    :: \cref{ex:math-sm-3-comparison} shows the Latex and simplemath code for the previous examples, allowing you to see a comparison.
+
+    EXAMPLETABLE .o wrapcell = sm
+    :: (label) ex:math-sm-table
+    :: (caption) A collection of \code{simplemath} examples
+    :: cos2 th + sin2 th equiv 1
+    :: log_2 n ge 5
+    :: ds (1+x)^n = sum_{r=0}^n binom n r x^r
+    :: A = B iff A subseteq B vee B subseteq A
+    :: ds al be + al ga + be ga = frac {-b} {2a}
+    :: ds f'(x) = lim_{h to 0} frac {f(x+h)-f(x)} h
+    :: neg(P implies Q) equiv P vee neg Q
+    :: P imp Q equiv neg P wedge Q
+    :: 12 = 2 cdot 2 cdot 3 text{ so } 5 nmid 12
+    :: ds prod_{i=1}^n x_i = x_1 x_2 cdots x_n
+    :: sqrt 2 notin bbQ
+    :: forall n in bbZ, n^2 in bbZ
+    :: OABC text{ is a parallelogram.}
 
     LBTEXAMPLE .o vertical
     :: (caption) simplemath (inline) with \Verb{\sm{...}}
@@ -33,6 +49,7 @@
       ITEMIZE .o compact
       :: \sm{cos th = 0.27}
       :: \sm{cos^2 al + sin^2 al equiv 1}
+      :: \sm{ds sum_{n=1}^{infty} frac 1 {n^2} = frac {pi^2} 6}
     >>
 
     LBTEXAMPLE .o vertical
@@ -41,24 +58,6 @@
     :: .v <<
       TEXT The \emph{intermediate value theorem}: \sm{ forall f text{ continuous on } [a,b], f(a) < 0 < f(b) implies exists c in (a,b) text{ such that } f(c) = 0 }
     >>
-
-    LBTEXAMPLE .o vertical, output = 0
-    :: (caption) Comparison of Latex and simplemath
-    :: (label) ex:math-sm-3-comparison
-    :: .v <<
-      \sm{cos th = 0.27}              $\cos\theta = 0.27$
-
-      \sm{cos^2 al + sin^2 al equiv 1}     $\cos^2\alpha + \sin^2\alpha \equiv 1$
-
-      \sm{ forall f text{ continuous on } [a,b], f(a) < 0 < f(b) implies exists c in (a,b) text{ such that } f(c) = 0 }
-      \[ \forall f \text{ continuous on } [a,b], f(a) < 0 f(b) \Longrightarrow \exists c \in (a,b) \text{ such that } f(c = 0) \]
-    >>
-
-
-
-
-
-
 
     % ------------------------------------------------------------ The integral macro
     SECTION The \code{integral} macro
