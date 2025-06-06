@@ -1,4 +1,5 @@
 \begin{lbt}
+  !DRAFT
   [@META]
     TEMPLATE lbt.Doc.Chapter
     TITLE Mathematical text \textsf{(lbt.Math)}
@@ -16,6 +17,48 @@
 
     % ------------------------------------------------------------ The simplemath macro
     SECTION The \code{simplemath} macro
+
+    BOX :: \verb|\lbtDefineMacros{sm = lbt.Math:simplemath}|
+
+    TEXT
+    :: Typing mathematics in Latex involves a lot of backslashes. With some preprocessing, which is easier in Lua than in Tex, we can improve this and make the resulting document text easier to read and write. Additionally, abbreviations are defined for Greek letters.
+    :: \cref{ex:math-sm-1} demonstrates three keywords (\code{sin}, \code{cos}, \code{equiv})  and two abbreviations \code{al} and \code{th} (for \verb|\alpha| and \verb|\theta|).
+    :: \cref{ex:math-sm-2} demonstrates several keywords: \code{forall}, \code{exists}, \code{in}, \code{implies} and \code{text}.
+    :: \cref{ex:math-sm-3-comparison} shows the Latex and simplemath code for the previous examples, allowing you to see a comparison.
+
+    LBTEXAMPLE .o vertical
+    :: (caption) simplemath (inline) with \Verb{\sm{...}}
+    :: (label) ex:math-sm-1
+    :: .v <<
+      ITEMIZE .o compact
+      :: \sm{cos th = 0.27}
+      :: \sm{cos^2 al + sin^2 al equiv 1}
+    >>
+
+    LBTEXAMPLE .o vertical
+    :: (caption) simplemath (display) with \Verb{\sm{ ... }} (note spaces)
+    :: (label) ex:math-sm-2
+    :: .v <<
+      TEXT The \emph{intermediate value theorem}: \sm{ forall f text{ continuous on } [a,b], f(a) < 0 < f(b) implies exists c in (a,b) text{ such that } f(c) = 0 }
+    >>
+
+    LBTEXAMPLE .o vertical, output = 0
+    :: (caption) Comparison of Latex and simplemath
+    :: (label) ex:math-sm-3-comparison
+    :: .v <<
+      \sm{cos th = 0.27}              $\cos\theta = 0.27$
+
+      \sm{cos^2 al + sin^2 al equiv 1}     $\cos^2\alpha + \sin^2\alpha \equiv 1$
+
+      \sm{ forall f text{ continuous on } [a,b], f(a) < 0 < f(b) implies exists c in (a,b) text{ such that } f(c) = 0 }
+      \[ \forall f \text{ continuous on } [a,b], f(a) < 0 f(b) \Longrightarrow \exists c \in (a,b) \text{ such that } f(c = 0) \]
+    >>
+
+
+
+
+
+
 
     % ------------------------------------------------------------ The integral macro
     SECTION The \code{integral} macro
