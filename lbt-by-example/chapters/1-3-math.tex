@@ -21,9 +21,16 @@
     BOX :: \verb|\lbtDefineMacros{sm = lbt.Math:simplemath}|
 
     TEXT
-    :: The \code{simplemath} macro stands in for \Verb|$ ... $| or \Verb|$$ .. $$| and allows your to type mathematical text succinctly. It recognises a lot of keywords and abbreviations, meaning far fewer backslashes are needed. For example, you can type \Verb|cos^2 th = 0.25 implies cos th = pm 0.5| instead of \Verb|\cos^2 \theta = 0.25 \Longrightarrow \cos \theta = \pm 0.5|.
-    :: \cref{ex:math-sm-1} demonstrates some keywords (\code{sin}, \code{cos}, \code{equiv}, \code{sum}, \code{frac}, \code{pi}) and some abbreviations \code{al} and \code{th} (for \verb|\alpha| and \verb|\theta|). Also \code{ds} for \verb|\displaystyle|.
-    :: \cref{ex:math-sm-2} demonstrates several keywords: \code{forall}, \code{exists}, \code{in}, \code{implies} and \code{text}.
+    :: The \code{simplemath} macro stands in for \Verb|$ ... $| or \Verb|$$ .. $$| and allows your to type mathematical text succinctly. It recognises a lot of keywords and abbreviations, meaning far fewer backslashes are needed.
+    :: \cref{ex:math-sm-1} demonstrates the use of \code{simplemath} in both math modes: inline and display.
+    :: \cref{ex:math-sm-table} contains a large number of examples.
+
+    LBTEXAMPLE .o vertical
+    :: (caption) simplemath (inline) with \Verb{\sm{...}}
+    :: (label) ex:math-sm-1
+    :: .v <<
+      TEXT Two interesting results from Euler are \sm{ds arctan x = x - frac{x^3}3 + frac{x^5}5 - cdots} and \sm{ sum_{n=1}^{infty} frac 1 {n^2} = frac {pi^2} 6. }
+    >>
 
     EXAMPLETABLE .o wrapcell = sm
     :: (label) ex:math-sm-table
@@ -42,28 +49,89 @@
     :: forall n in bbZ, n^2 in bbZ
     :: OABC text{ is a parallelogram.}
 
-    LBTEXAMPLE .o vertical
-    :: (caption) simplemath (inline) with \Verb{\sm{...}}
-    :: (label) ex:math-sm-1
-    :: .v <<
-      ITEMIZE .o compact
-      :: \sm{cos th = 0.27}
-      :: \sm{cos^2 al + sin^2 al equiv 1}
-      :: \sm{ds sum_{n=1}^{infty} frac 1 {n^2} = frac {pi^2} 6}
-    >>
-
-    LBTEXAMPLE .o vertical
-    :: (caption) simplemath (display) with \Verb{\sm{ ... }} (note spaces)
-    :: (label) ex:math-sm-2
-    :: .v <<
-      TEXT The \emph{intermediate value theorem}: \sm{ forall f text{ continuous on } [a,b], f(a) < 0 < f(b) implies exists c in (a,b) text{ such that } f(c) = 0 }
-    >>
-
     % ------------------------------------------------------------ The integral macro
+    LATEX \FloatBarrier
     SECTION The \code{integral} macro
 
+    TEXT
+    :: Typing integrals in regular Latex, or with \code{simplemath}, is not exactly a chore. But there is room for simplification, and the \code{integral} macro allows for definite or easy typing indefinite (single, simple) integrals. If the first argument is \code{ds} then a \Verb|\displaystyle| is inserted.
+    :: The resulting Latex code is wrapped in \Verb|\ensuremath{...}|, so integrals do not need to be inside a math environment.
+    :: \cref{x} shows a definite and indefinite integral. \cref{y} shows the use of \code{ds} for displaystyle.
+
+    LBTEXAMPLE .o vertical
+    :: (caption) The \code{integral} macro
+    :: (label) ex:math-int-1
+    :: .v <<
+      TEXT The integral \integral{\frac{\sin x}{x},dx}, or in display style, \integral{ds,\frac{\sin x}{x},dx}, has practical importance but can't be evaluated in closed form.
+
+      TEXT You can take advantage of \code{simplemath} as well: \sm{ \integral{sqrt {1 + sin3 th},d th} }
+    >>
+
+    EXAMPLETABLE
+    :: (label) ex:math-int-table-1
+    :: (caption) A collection of \code{integral} examples, both definite and indefinite, with and without displaystyle.
+    :: (shortcaption) A collection of \code{integral} examples
+    :: \integral{\sin x,dx}
+    :: \integral{1,3,\sqrt{4z},dz}
+    :: \integral{ds,\tan y,dy}
+    :: \integral{ds,1,3,\sqrt{4z},dz}
+
+
+
     % ------------------------------------------------------------ The vector macro and friends
-    SECTION The \code{vector} macro and friends
+    LATEX \FloatBarrier
+    SECTION The \code{vector} macro
+
+    TEXT
+    :: With the \code{vector} macro you can easily typeset \vecbold{a} and \vectilde{b} and \vecarrow{c}. Oh, and \V{DE} and \V{3 -7} and \V{row 4 0 9}. And finally, \V{ijk 2 -5 1} and \V{ijk -3 0 4}.
+    :: One might choose to set up this macro as \Verb|\V| as follows:
+    BOX \verb|\lbtDefineMacros{V = lbt.Math:vector}|
+    TEXT A thorough set of examples is given in \cref{ex:math-vector-table}.
+
+    EXAMPLETABLE .o mathmode
+    :: (label) ex:math-vector-table
+    :: (caption) A collection of \code{vector} and \code{vectorijk} examples
+    :: \V{3 1 -9} + \V{-2 5 4} = \V{1 6 -5}
+    :: \V{row 2 7 -1 4 6}
+    :: \V{a} + \V{b} = \V{a_1 a_2} + \V{b_1 b_2}
+    :: \V{r} = \V{r_1 \vdots r_n}
+    :: \V{3 1 -9} = \Vijk{3 1 -9}
+    :: \V{-1 0 4} = \Vijk{-1 0 4}
+    :: \V{-1 0} = \Vijk{-1 0}
+    :: \V{ijk 3 4 5}
+
+    SUBSECTION Bold, tilde and arrow
+    TEXT Vectors are most commonly set in bold upright (\vecbold{a}), and that is the \lbtlogo{} default. You can, however, choose tilde (\vectilde{a}) or arrow (\vecarrow{a}) instead. \cref{ex:math-vector-formats-1} shows how to make these choices for your \lbtlogo{} expansion or your whole Latex document. If you want just a one-off, you can define and use the following macros. \cref{ex:math-vector-formats-2} demonstrates their use.
+    BOX
+    :: \verb|\lbtDefineMacros{vecbold  = lbt.Math:vecbold}|
+    :: \verb|\lbtDefineMacros{vectilde = lbt.Math:vectilde}|
+    :: \verb|\lbtDefineMacros{vecarrow = lbt.Math:vecarrow}|
+
+    LBTEXAMPLE .o output = 0
+    :: (caption) Vectors in bold or tilde or arrow format, document-wide
+    :: (label) ex:math-vector-formats-1
+    :: (substitute) LBT/lbt
+    :: .v <<
+      * Affect the whole Latex document
+      \lbtGlobalOpargs{vector.format = tilde}
+
+      * Affect one LBT expansion
+      \begin{LBT}
+        [@META]
+          TEMPLATE lbt.Basic
+          OPTIONS  vector.format = arrow
+        ...
+      \end{LBT}
+    >>
+
+    LBTEXAMPLE .o vertical
+    :: (caption) Vectors in bold or tilde or arrow format, one-off
+    :: (label) ex:math-vector-formats-2
+    :: .v <<
+      TEXT We can write \vecbold{a} or \vectilde{b} or \vecarrow{c}.
+    >>
+
+
 
     % ------------------------------------------------------------ The MATH command
     SECTION The \code{MATH} command

@@ -200,7 +200,7 @@ impl.apply_float = function(latex, o, kw)
 end
 
 a.EXAMPLETABLE = '1+'
-op.EXAMPLETABLE = { shrinkmargin = 'nil', wrapcell = 'nil' }
+op.EXAMPLETABLE = { shrinkmargin = 'nil', wrapcell = 'nil', mathmode = false }
 f.EXAMPLETABLE = function(n, args, o, kw)
   local makerow = function(text)
     local text2 = text
@@ -208,9 +208,13 @@ f.EXAMPLETABLE = function(n, args, o, kw)
     return F([[  \Verb|%s| & %s \\ ]], text, text2)
   end
   local content = T {
-    [[\begin{tblr}{colspec={X[2,l] X[1,l]}, hlines, vlines, column{1}={font=\small}, rowsep=6pt}]],
+    [[\begin{tblr}{colspec={X[2,l] X[1,l]}, hlines, vlines,]],
+    [[             column{1}={font=\small}, rowsep=6pt, !MATHMODE!}]],
     args:map(function(x) return makerow(x) end):concat('\n'),
     [[\end{tblr}]],
+    values = {
+      MATHMODE = o.mathmode and 'column{2}={mode=math}' or ''
+    }
   }
   content = impl.apply_shrinkmargin(content, o)
   local result = T { [[
@@ -223,7 +227,7 @@ f.EXAMPLETABLE = function(n, args, o, kw)
     values = {
       ADJUSTCAPTIONMARGIN = impl.adjustcaptionmargin(o),
       CONTENT = content,
-      CAPTION = kw.caption and F([[\caption{%s}]], kw.caption) or '(caption)',
+      CAPTION = lbt.util.latex_caption_command(kw) or '',
       LABEL = kw.label or 'ex:abc',
     }
   }
