@@ -103,14 +103,14 @@ impl.lbt_example_tcolorbox = function(args)
   local orientation = ''
   if args.orientation == 'horizontal' then orientation = 'sidebyside' end
   if args.output == nil then
-    return F(impl.tcolorbox_template1, '', args.input)
+    return F(impl.tcolorbox_template1, '', args.input:rstrip())
   else
-    return F(impl.tcolorbox_template2, orientation, args.input, args.output)
+    return F(impl.tcolorbox_template2, orientation, args.input:rstrip(), args.output)
   end
 end
 
 impl.tcolorbox_template1 = [[
-  \begin{tcolorbox}[before skip=2pt, after skip=2pt, %s]
+  \begin{tcolorbox}[before skip=2pt, after skip=2pt, after upper=\vspace{-12pt}, %s]
     \begin{small}
       \begin{Verbatim}[formatcom=\color{NavyBlue}, breaklines=true]
         %s
@@ -120,7 +120,7 @@ impl.tcolorbox_template1 = [[
 ]]
 
 impl.tcolorbox_template2 = [[
-  \begin{tcolorbox}[before skip=2pt, after skip=2pt, %s]
+  \begin{tcolorbox}[before skip=2pt, after skip=2pt, after upper=\vspace{-12pt}, %s]
     \begin{small}
       \begin{Verbatim}[formatcom=\color{NavyBlue}, breaklines=true]
         %s
