@@ -22,14 +22,14 @@
 
     TEXT
     :: The \code{simplemath} macro stands in for \Verb|$ ... $| or \Verb|$$ .. $$| and allows your to type mathematical text succinctly. It recognises a lot of keywords and abbreviations, meaning far fewer backslashes are needed.
-    :: \cref{ex:math-sm-1} demonstrates the use of \code{simplemath} in both math modes: inline and display.
-    :: \cref{ex:math-sm-table} contains a large number of examples.
+    :: \cref{ex:math-sm-1} demonstrates the use of \code{simplemath} in both math modes: inline and display. \cref{ex:math-sm-table} contains a large number of examples to show the variety of conveniences that \code{simplemath} offers.
 
     LBTEXAMPLE .o vertical
-    :: (caption) simplemath (inline) with \Verb{\sm{...}}
+    :: (caption) \code{simplemath} usage, both inline and display form
     :: (label) ex:math-sm-1
+    :: (breakat) BREAK
     :: .v <<
-      TEXT Two interesting results from Euler are \sm{ds arctan x = x - frac{x^3}3 + frac{x^5}5 - cdots} and \sm{ sum_{n=1}^{infty} frac 1 {n^2} = frac {pi^2} 6. }
+      TEXT Two interesting results from Euler are BREAK \sm{ds arctan x = x - frac{x^3}3 + frac{x^5}5 - cdots} and BREAK \sm{ sum_{n=1}^{infty} frac 1 {n^2} = frac {pi^2} 6. }
     >>
 
     EXAMPLETABLE .o wrapcell = sm
@@ -56,21 +56,21 @@
     TEXT
     :: Typing integrals in regular Latex, or with \code{simplemath}, is not exactly a chore. But there is room for simplification, and the \code{integral} macro allows for definite or easy typing indefinite (single, simple) integrals. If the first argument is \code{ds} then a \Verb|\displaystyle| is inserted.
     :: The resulting Latex code is wrapped in \Verb|\ensuremath{...}|, so integrals do not need to be inside a math environment.
-    :: \cref{x} shows a definite and indefinite integral. \cref{y} shows the use of \code{ds} for displaystyle.
+    :: \cref{ex:math-int-1} shows a definite and indefinite integral in context. \cref{ex:math-int-2} contains enough examples so that definite and indefinte are shown, as are normal style and display style.
 
     LBTEXAMPLE .o vertical
     :: (caption) The \code{integral} macro
     :: (label) ex:math-int-1
+    :: (breakat) BREAK
     :: .v <<
-      TEXT The integral \integral{\frac{\sin x}{x},dx}, or in display style, \integral{ds,\frac{\sin x}{x},dx}, has practical importance but can't be evaluated in closed form.
+      TEXT The integral \integral{ds,\frac{\sin x}{x},dx} has practical importance but can't be evaluated in closed form.
 
-      TEXT You can take advantage of \code{simplemath} as well: \sm{ \integral{sqrt {1 + sin3 th},d th} }
+      TEXT You can take advantage of \code{simplemath} as well: BREAK \sm{ \integral{pi/3,pi,sqrt {1 + sin3 th},d th} }
     >>
 
     EXAMPLETABLE
-    :: (label) ex:math-int-table-1
-    :: (caption) A collection of \code{integral} examples, both definite and indefinite, with and without displaystyle.
-    :: (shortcaption) A collection of \code{integral} examples
+    :: (label) ex:math-int-2
+    :: (caption) A collection of \code{integral} examples
     :: \integral{\sin x,dx}
     :: \integral{1,3,\sqrt{4z},dz}
     :: \integral{ds,\tan y,dy}

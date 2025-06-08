@@ -55,9 +55,9 @@ f.LBTEXAMPLE = function(_, args, o, kw)
   -- result_latex is the tcolorbox inside an adjustmargin and possibly a figure
   --
   -- (1) Do the work to format input and (optionally) output into a tcolorbox.
-  local code_input = impl.perform_substitution(kw.substitute, args[1])
-  local code_output
-  local result_latex
+  local code_display, code_input, code_output, result_latex
+  code_input = impl.perform_substitution(kw.substitute, args[1])
+  code_display, code_input = impl.add_linebreaks(kw.breakat, code_input)
   local orientation = impl.orientation(o)
   if o.output == 0 then
     code_output = nil
@@ -67,7 +67,7 @@ f.LBTEXAMPLE = function(_, args, o, kw)
   elseif o.output == 2 then
     code_output = impl.compile_lbt_to_latex_or_warning(code_input)
   end
-  local box = impl.lbt_example_tcolorbox { input = code_input, output = code_output,
+  local box = impl.lbt_example_tcolorbox { input = code_display, output = code_output,
                                            orientation = orientation, scale = o.scale }
   --
   -- (2) Apply 'shrinkmargin' and 'float' options, if appropriate.
@@ -142,6 +142,16 @@ impl.perform_substitution = function(sub_spec, text)
   local a, b = bits[1], bits[2]
   local x = text:gsub(a, b)
   return x
+end
+
+-- Sometimes we want manual linebreaks in the code for better reading.
+-- This returns the (display text) and the (code text) in that order.
+impl.add_linebreaks = function(break_string, text)
+  if break_string == '' or break_string == nil then
+    return text, text
+  else
+    return text:gsub(break_string, '\n » '), text:gsub(break_string, '')
+  end
 end
 
 impl.verbatim_uncommented_latex_code = function(text)
