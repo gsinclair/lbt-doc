@@ -23,6 +23,7 @@
     TEXT
     :: The \code{simplemath} macro stands in for \Verb|$ ... $| or \Verb|$$ .. $$| and allows your to type mathematical text succinctly. It recognises a lot of keywords and abbreviations, meaning far fewer backslashes are needed.
     :: \cref{ex:math-sm-1} demonstrates the use of \code{simplemath} in both math modes: inline and display. \cref{ex:math-sm-table} contains a large number of examples to show the variety of conveniences that \code{simplemath} offers.
+    :: \cref{ex:math-sm-2} shows that brackets are auto-sized (that is, \Verb|\left| and \Verb|\right| are applied intelligently) and that \Verb|text{...}| (or \Verb|\text{...}|) is recognised specially, and passed through to Latex without processing its contents.
 
     LBTEXAMPLE .o vertical
     :: (caption) \code{simplemath} usage, both inline and display form
@@ -48,6 +49,18 @@
     :: sqrt 2 notin bbQ
     :: forall n in bbZ, n^2 in bbZ
     :: OABC text{ is a parallelogram.}
+
+
+    LBTEXAMPLE .o vertical
+    :: (label) ex:math-sm-2
+    :: (caption) \code{simplemath}'s handling of parentheses, brackets and \code{text}
+    :: (breakat) BREAK
+    :: .v <<
+      TEXT Brackets will automatically assume the correct size: BREAK
+      » \sm{ y = (1 + [frac x 7])^2 quad text{($[A]$ is the rounding function)} }
+
+      TEXT Suppress this behaviour by setting the option \texttt{simplemath.leftright = false}.
+    >>
 
     % ------------------------------------------------------------ The integral macro
     LATEX \FloatBarrier
@@ -131,10 +144,36 @@
       TEXT We can write \vecbold{a} or \vectilde{b} or \vecarrow{c}.
     >>
 
-
-
     % ------------------------------------------------------------ The MATH command
     SECTION The \code{MATH} command
+
+    TEXT
+    :: With the \code{MATH} command you can access the following \package{amsmath} environments: \code{equation}, \code{align}, \code{multiline}, \code{gather}, \code{split}. By default, equation numbering is off, but if you want numbering \code{MATH} gives you easy control over it. By default an \qq{align} block (for instance) ends with a paragraph, so that the mathematical text stands alone in the flow of text, but you can easily suppress the paragraph as well.
+    :: At times, mathematical text can get complicated, and nested environments might be required, or extra detailed attention to alignment markers. It is worth remembering that \lbtlogo{} is designed to make the easy things easy. If a block of text is too complicated, it may be worth using the \package{amsmath} environments directly and bypassing \lbtlogo{}, although at times like these the \code{STO} command can be helpful to break the typesetting job into smaller parts.
+
+    LBTEXAMPLE .o vertical
+    :: (label) ex:math-math-1
+    :: (caption) Some of the \code{MATH} blah blah
+    :: .v <<
+      TEXT The default environments is \textbf{equation}.
+      MATH \forall k \in \mathbb{N}, k^2 \in \mathbb{N}
+
+      TEXT We can split an equation into multiple lines, with some alignment, using \textbf{split}.This treats the equation as one object for numbering purposes. (Note that in \package{amsmath} the \code{split} environment must be inside another math environment.)
+      STO half :: 1 :: $\tfrac 1 2$
+      MATH .o split, sm
+      :: 2^{n+1} &= 2 cdot 2^n
+      ::         &> 2 cdot n^2
+      ::         &= n^2 + ◊half n^2 + ◊half n^2
+      ::         &> n^2 + 2n + 1
+      ::         &= (n+1)^2
+
+
+      TEXT We can put several independent equations in the same block with \textbf{gather}.
+      MATH .o gather :: x
+    >>
+
+
+
 
     % ------------------------------------------------------------ The mathlistand macro and friends
     SECTION The \code{mathlistand} macro and friends
