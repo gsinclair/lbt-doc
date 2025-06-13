@@ -6,3 +6,4 @@ lbt-expansions/
 *.loe
 *.toc
 *.out
+.lbtSettings
