@@ -1,32 +1,35 @@
 \begin{lbt}
-  !DRAFT
+  !NODRAFT
   [@META]
     TEMPLATE lbt.Doc.Chapter
-    TITLE Mathematical text \textsf{(lbt.Math)}
-    LABEL ch.math
-    SOURCES LbtDoc, lbt.Math
+    TITLE Mathematical text \textsf{(lbt.Math)} -- various macros
+    LABEL ch.math-macros
+    SOURCES LbtDoc
 
   [+BODY]
+    STO simplemath :: 999 :: \code{simplemath}
+
     TEXT The \package{lbt.Math} template provides several affordances for typing mathematical text.
     ITEMIZE .o compact
-    :: The \code{simplemath} macro is a replacement for the inline and display math environments \Verb|$ ... $| and \Verb|$$ .. $$| (or their Latex equivalents). It allows you to type mathematical text more succinctly and with fewer backslashes.
+    :: The ◊simplemath macro is a replacement for the inline and display math environments \Verb|$ ... $| and \Verb|$$ .. $$| (or their Latex equivalents). It allows you to type mathematical text more succinctly and with fewer backslashes.
     :: The \code{integal} macro simplifies typing definite and indefinite (single) integrals.
     :: The \code{vector} and \code{vectorijk} macro greatly simplify typing vectors.
-    :: The \code{MATH} command gives you easy access to \package{amsmath}'s collection of environments: align, gather, multiline, \dots
     :: A collection of macros like \code{mathlistand}, \code{mathsum}, \code{mathseqdots} and several others provide a convenient way to type mathematical text like \qq{\mathlistand{a,b,c}} or \qq{\mathseqdots{y,1,2,3,n}}.
 
+    TEXT Also found in \package{lbt.Math} is the \code{MATH} command, which aids in the typesetting of display equations. It appears in \cref{ch.math-command}.
+
     % ------------------------------------------------------------ The simplemath macro
-    SECTION The \code{simplemath} macro
+    SECTION The ◊simplemath macro
 
     BOX :: \verb|\lbtDefineMacros{sm = lbt.Math:simplemath}|
 
     TEXT
-    :: The \code{simplemath} macro stands in for \Verb|$ ... $| or \Verb|$$ .. $$| and allows your to type mathematical text succinctly. It recognises a lot of keywords and abbreviations, meaning far fewer backslashes are needed.
-    :: \cref{ex:math-sm-1} demonstrates the use of \code{simplemath} in both math modes: inline and display. \cref{ex:math-sm-table} contains a large number of examples to show the variety of conveniences that \code{simplemath} offers.
+    :: The ◊simplemath macro stands in for \Verb|$ ... $| or \Verb|$$ .. $$| and allows your to type mathematical text succinctly. It recognises a lot of keywords and abbreviations, meaning far fewer backslashes are needed.
+    :: \cref{ex:math-sm-1} demonstrates the use of ◊simplemath in both math modes: inline and display. \cref{ex:math-sm-table} contains a large number of examples to show the variety of conveniences that ◊simplemath offers.
     :: \cref{ex:math-sm-2} shows that brackets, both round and square, are auto-sized (that is, \Verb|\left| and \Verb|\right| are applied intelligently) and that \Verb|text{...}| (or \Verb|\text{...}|) is recognised specially, and passed through to Latex without processing its contents. Note, however, that braces (\Verb|{}|) are \emph{not} auto-sized.
 
     LBTEXAMPLE .o vertical
-    :: (caption) \code{simplemath} usage, both inline and display form
+    :: (caption) ◊simplemath usage, both inline and display form
     :: (label) ex:math-sm-1
     :: (breakat) BREAK
     :: .v <<
@@ -35,7 +38,7 @@
 
     EXAMPLETABLE .o wrapcell = sm
     :: (label) ex:math-sm-table
-    :: (caption) A collection of \code{simplemath} examples
+    :: (caption) A collection of ◊simplemath examples
     :: cos2 th + sin2 th equiv 1
     :: log_2 n ge 5
     :: ds (1+x)^n = sum_{r=0}^n binom n r x^r
@@ -53,7 +56,7 @@
 
     LBTEXAMPLE .o vertical
     :: (label) ex:math-sm-2
-    :: (caption) \code{simplemath}'s handling of parentheses, brackets and \code{text}
+    :: (caption) ◊simplemath's handling of parentheses, brackets and \code{text}
     :: (breakat) BREAK
     :: .v <<
       TEXT Brackets will automatically assume the correct size: BREAK
@@ -67,7 +70,7 @@
     SECTION The \code{integral} macro
 
     TEXT
-    :: Typing integrals in regular Latex, or with \code{simplemath}, is not exactly a chore. But there is room for simplification, and the \code{integral} macro allows for definite or easy typing indefinite (single, simple) integrals. If the first argument is \code{ds} then a \Verb|\displaystyle| is inserted.
+    :: Typing integrals in regular Latex, or with ◊simplemath, is not exactly a chore. But there is room for simplification, and the \code{integral} macro allows for definite or easy typing indefinite (single, simple) integrals. If the first argument is \code{ds} then a \Verb|\displaystyle| is inserted.
     :: The resulting Latex code is wrapped in \Verb|\ensuremath{...}|, so integrals do not need to be inside a math environment.
     :: \cref{ex:math-int-1} shows a definite and indefinite integral in context. \cref{ex:math-int-2} contains enough examples so that definite and indefinte are shown, as are normal style and display style.
 
@@ -78,7 +81,7 @@
     :: .v <<
       TEXT The integral \integral{ds,\frac{\sin x}{x},dx} has practical importance but can't be evaluated in closed form.
 
-      TEXT You can take advantage of \code{simplemath} as well: BREAK \sm{ \integral{pi/3,pi,sqrt {1 + sin3 th},d th} }
+      TEXT You can take advantage of ◊simplemath as well: BREAK \sm{ \integral{pi/3,pi,sqrt {1 + sin3 th},d th} }
     >>
 
     EXAMPLETABLE
@@ -144,38 +147,51 @@
       TEXT We can write \vecbold{a} or \vectilde{b} or \vecarrow{c}.
     >>
 
-    % ------------------------------------------------------------ The MATH command
-    SECTION The \code{MATH} command
+    % ---------------------------------------------------- The mathlistand macro and friends
+    LATEX \FloatBarrier
+    SECTION The \code{mathlistand} macro and friends
+
+    % ------------------------------------------------------------ Code to set up all macros
+    LATEX \FloatBarrier
+    SECTION Code to set up all macros
 
     TEXT
-    :: With the \code{MATH} command you can access the following \package{amsmath} environments: \code{equation}, \code{align}, \code{multiline}, \code{gather}, \code{split}. By default, equation numbering is off, but if you want numbering \code{MATH} gives you easy control over it. By default an \qq{align} block (for instance) ends with a paragraph, so that the mathematical text stands alone in the flow of text, but you can easily suppress the paragraph as well.
-    :: At times, mathematical text can get complicated, and nested environments might be required, or extra detailed attention to alignment markers. It is worth remembering that \lbtlogo{} is designed to make the easy things easy. If a block of text is too complicated, it may be worth using the \package{amsmath} environments directly and bypassing \lbtlogo{}, although at times like these the \code{STO} command can be helpful to break the typesetting job into smaller parts.
+    :: As a convenience, \cref{ex:math-macros-setup} contains the code that you can paste into your preamble to obtain access to all macros described in this chapter. They are grouped for readability.
 
-    LBTEXAMPLE .o vertical
-    :: (label) ex:math-math-1
-    :: (caption) Some of the \code{MATH} blah blah
+    LBTEXAMPLE .o output = 0
+    :: (label) ex:math-macros-setup
+    :: (caption) Preamble code to set up all \package{lbt.Math} macros
     :: .v <<
-      TEXT The default environments is \textbf{equation}.
-      MATH \forall k \in \mathbb{N}, k^2 \in \mathbb{N}
-
-      TEXT We can split an equation into multiple lines, with some alignment, using \textbf{split}.This treats the equation as one object for numbering purposes. (Note that in \package{amsmath} the \code{split} environment must be inside another math environment.)
-      STO half :: 1 :: $\tfrac 1 2$
-      MATH .o split, sm
-      :: 2^{n+1} &= 2 cdot 2^n
-      ::         &> 2 cdot n^2
-      ::         &= n^2 + ◊half n^2 + ◊half n^2
-      ::         &> n^2 + 2n + 1
-      ::         &= (n+1)^2
-
-
-      TEXT We can put several independent equations in the same block with \textbf{gather}.
-      MATH .o gather :: x
+      \lbtDefineLatexMacros{
+        sm                 = lbt.Math:simplemath,
+        integral           = lbt.Math:integral,
+      }
+      \lbtDefineLatexMacros{
+        V                  = lbt.Math:vector,
+        vecbold            = lbt.Math:vecbold,
+        vecarrow           = lbt.Math:vecarrow,
+        vectilde           = lbt.Math:vectilde,
+      }
+      \lbtDefineLatexMacros{
+        mathlistand        = lbt.Math:mathlistand,
+        mathlistor         = lbt.Math:mathlistor,
+        mathlist           = lbt.Math:mathlist,
+        mathlistdots       = lbt.Math:mathlistdots,
+        mathsum            = lbt.Math:mathsum,
+        mathsumdots        = lbt.Math:mathsumdots,
+        mathseq            = lbt.Math:mathseq,
+        mathseqsum         = lbt.Math:mathseqsum,
+        mathseqproduct     = lbt.Math:mathseqproduct,
+        mathseqdots        = lbt.Math:mathseqdots,
+        mathseqdotssum     = lbt.Math:mathseqdotssum,
+        mathseqdotsproduct = lbt.Math:mathseqdotsproduct,
+      }
+      \lbtDefineLatexMacros{
+        primefactorisation = lbt.Math:primefactorisation,
+      }
     >>
 
 
 
-
-    % ------------------------------------------------------------ The mathlistand macro and friends
-    SECTION The \code{mathlistand} macro and friends
 
 \end{lbt}

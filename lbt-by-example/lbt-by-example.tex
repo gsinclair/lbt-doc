@@ -25,7 +25,7 @@
 % [[[ LBT settings and macro definitions --------------------------------------------
 \usepackage{lbt}
   \lbtSettings{
-    SettingsFile = .lbtSettings
+    SettingsFile = .lbtSettings,
   }
   \lbtLoadTemplates{PWD/../lbt-templates}
   \lbtGlobalOpargs{
@@ -63,6 +63,15 @@
     singlelinecheck = false,
     position = below,
     skip = 4pt,
+  }
+  \captionsetup[table]{
+    font = {small, sf, color=captioncolor},
+    labelfont = bf,
+    labelsep = quad,
+    justification = centering,
+    singlelinecheck = false,
+    position = above,
+    skip = 12pt,
   }
 
 % TODO: implement or remove these
@@ -121,6 +130,8 @@
 \usepackage{cleveref}
   \crefformat{example}{\textsf{\small\bfseries\color{captioncolor}#2Example~#1#3}}
   \Crefformat{example}{\textsf{\small\bfseries\color{captioncolor}Example~#2#1#3}}
+  \crefformat{table}{\textsf{\small\bfseries\color{captioncolor}#2Table~#1#3}}
+  \Crefformat{table}{\textsf{\small\bfseries\color{captioncolor}Table~#2#1#3}}
 
 % ]]]
 
@@ -175,7 +186,8 @@
 
 \include{chapters/1-1-basic}
 \include{chapters/1-2-lists-tables}
-\include{chapters/1-3-math}
+\include{chapters/1-3-math-general}
+\include{chapters/1-4-math-command}
 
 \part{Non-core built-in templates}
 

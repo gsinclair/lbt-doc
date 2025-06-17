@@ -1,0 +1,179 @@
+\begin{lbt}
+  !DRAFT
+  [@META]
+    TEMPLATE lbt.Doc.Chapter
+    TITLE Mathematical text \textsf{(lbt.Math)} -- the \code{MATH} command
+    LABEL ch.math-command
+    SOURCES LbtDoc
+
+  [+BODY]
+    STO lbt :: 999 :: \lbtlogo{}
+    STO MATH :: 999 :: \code{MATH}
+    STO amsmath :: 999 :: \package{amsmath}
+    STO mathtools :: 999 :: \package{amsmath}
+    STO split :: 999 :: \code{split}
+    STO eqsplit :: 999 :: \code{eqsplit}
+    STO equation :: 999 :: \code{equation}
+    STO align :: 999 :: \code{align}
+    STO gather :: 999 :: \code{gather}
+    STO multline :: 999 :: \code{multline}
+    STO simplemath :: 999 :: \code{simplemath}
+    STO xxx :: 999 :: \code{xxx}
+    STO xxx :: 999 :: \code{xxx}
+
+    TEXT
+    :: The ◊MATH command gets its own chapter so that its various features can be displayed one section at a time.
+    :: ◊MATH provides for a variety of display equations. It is a portal to various \package{amsmath} and \package{mathtools} environments like ◊split, ◊gather, ◊align, and so on. The examples here give a good primer on their use, but readers should consult the relevant documentation to develop greater awareness of the details.
+
+    % ------------------------------------------------------------ Opening remarks
+    SECTION Opening remarks
+
+    STO fn1 :: 1 :: Or the Tex command \Verb|$$ ... $$|, which is lower-level and may produce different vertical spacing from \Verb|\[ ... \]|.
+
+    TEXT
+    :: Setting a display equation with \Verb|\[ ... \]|\footnote{◊fn1} is enough for a great many cases. If you want your equation to be numbered, you upgrade to the \code{equation} environment. If the math content to be displayed is more complicated than that, the author should decide which of the following applies:
+    ITEMIZE .o compact
+    :: there is one logical equation with several parts (separated by $=$ or $>$ or \dots) that should appear on separate lines;
+    :: sthere is one logical equation that is too long to fit on one line;
+    :: there are several logical equations to be displayed together, centered or left-aligned;
+    :: there are several logical equations to be displayed reasonably simple alignment;
+    :: there are more complicated alignment requirements, perhaps involving comments to the side
+    TEXT
+    :: Based on that, the author can choose an ◊amsmath environment, as summarised in \cref{table:amsmath-envs}. The table does not show \emph{all} available environments, but it gives a good overview for readers who are not already familiar.
+    :: The sections of this chapter give more detailed information on these environments and more.
+
+    % NEWCOMMAND amsexample :: 2 :: \begin{minipage}{7cm}{\begin{#1} #2 \end{#1}}
+    NEWCOMMAND amsexample :: 2 :: \begin{minipage}{\linewidth}{\setcounter{equation}{0}\begin{#1} #2 \end{#1}}\end{minipage}
+
+    STO splitexample :: 1 :: \begin{split}f'(x) &= \lim_{h\to0} \frac{f(x+h) - f(x)}{h} \\ &= \lim_{h\to0} \frac{(x+h)^2 - x^2}{h} \\ &= \lim_{h\to0} \frac{(x^2 + 2xh + h^2) - x^2}{h} \\ &= \lim_{h\to0} \frac{2xh + h^2}{h} \\ &= \lim_{h\to0} 2x + h \\ &= 2x\end{split}
+    STO half :: 1 :: \frac{1}{2}
+
+    TABLE .o float
+    :: (spec) colspec = {lX}, cells = {font=\small}, row{1} = {font=\bfseries\small}, cell{1}{2} = {halign=c}
+    :: (caption) Some environments provided by ◊amsmath
+    :: (label) table:amsmath-envs
+    :: Environment & Example
+    :: \hline
+    :: ◊equation & \amsexample{equation}{a^2 + b^2 = c^2}
+    :: ◊gather   & \amsexample{gather}{a^2 + b^2 = c^2 \\ E = mc^2 \\ F = k \frac{q_1q_2}{r^2}}
+    :: ◊align (1)   & \amsexample{align}{a^2 + b^2 &= c^2 \\ E &= mc^2 \\ F &= k \frac{q_1q_2}{r^2}}
+    :: ◊align (2)    & \amsexample{align}{a^2 + b^2 &= c^2  &  E &= mc^2 \\ F &= k \frac{q_1q_2}{r^2}  &  F &= ma}
+    :: ◊align (3)    & \amsexample{align}{2^{n+1} &= 2\cdot 2^n \\ &> 2\cdot n^2 &&\text{by assumption} \\ &= n^2 + ◊half n^2 + ◊half n^2 \\ &> n^2 + 2n + 1 &&\text{reader to confirm} \\ &= (n+1)^2}
+    :: ◊split {\footnotesize(inside ◊equation)} & \amsexample{equation}{◊splitexample}
+    :: ◊multline & \amsexample{multline}{(1+x)^n = \sum_{r=0}^n \binom{n}{r}\,x^r = 1 + \binom n1 x + \binom n2 x^2 \\ + \dots + \binom nr x^r + \dots + \binom nn x^n}
+
+    % ------------------------------------------------------------ equation
+    SECTION ◊equation
+
+    TEXT
+    :: The ◊equation environment provides for a simple numbered equation. \cref{ex:math-equation} demonstrates this in ◊lbt.
+    :: Equation numbering is suppressed by default (◊lbt author's preference), but is enabled with the \code{eqnum} oparg. If you want equation numbering enabled by default, you can set \code{MATH.eqnum = true} as a local or global oparg. See \textbf{Section ??? -- to be written}. Then you can specify \code{.o noeqnum} for a particular equation if you wish.
+    :: This aspect of equation numbering -- off by default -- applies to all environments shown in this chapter.
+
+    LBTEXAMPLE .o horizontal, reseteqnum
+    :: (label) ex:math-equation
+    :: (caption) \code{MATH .o equation} to format a simple equation
+    :: .v <<
+      TEXT Newton's third law is known to many.
+      MATH .o equation :: F = ma
+
+      TEXT You can specify that the equation should be numbered.
+      MATH .o equation, eqnum :: F = ma
+
+      TEXT Finally, equation is the \emph{default} environment for \code{MATH}, so you can simply write:
+      MATH F = ma
+    >>
+
+    % ------------------------------------------------------------ eqsplit
+    LATEX \FloatBarrier
+    SECTION ◊eqsplit
+
+    SUBSECTION ◊eqsplit
+    TEXT
+    :: The ◊amsmath environment ◊split is designed for a single logical equation that is broken into two or more lines, like the example below.
+    MATH .o eqsplit
+      :: (a+b)^2 &= (a+b)(a+b)
+      ::         &= a^2 + ab + ab + b^2
+      ::         &= a^2 + 2ab + b^2
+    TEXT
+    :: However, ◊split is a
+    :: It must occur within another math environment, like ◊equation or ◊align, or simply \Verb|\[ ... \]|. That is because you may have several such equations grouped in the enclosing environment. A split equation gets only one number, not one number per line, and the numbering comes from the enclosing environment.
+    :: \textbf{The same thing is said three times below. Time to edit!}
+    :: It is often inconvenient not to be able to treat ◊split as a top-level environment, so \code{MATH} provides \code{eqsplit}, which is ◊split wrapped in ◊equation. \cref{ex:math-eqsplit} demonstrates this feature.
+    :: For convenience, \code{MATH} provides ◊eqsplit, which is a ◊split environment wrapped in an ◊equation environment.
+    :: If you want to show an equation split across several lines, chances are good it's the \emph{only} equation you want to show, which means in ordinary Latex you have an ◊equation environment containing a ◊split environment and nothing else. To handle this common case, ◊lbt provides ◊eqsplit, demonstrated in \cref{ex:math-eqsplit}. This example also shows that ◊simplemath can be used if you specify the \code{sm} oparg.
+
+    LBTEXAMPLE .o vertical
+    :: (label) ex:math-eqsplit
+    :: (caption) Using \code{MATH .o eqsplit} for a multi-step equation
+    :: .v <<
+      TEXT Part of a proof by induction.
+      STO half :: 1 :: $\tfrac 1 2$
+      MATH .o split, sm
+      :: 2^{n+1} &= 2 cdot 2^n
+      ::         &> 2 cdot n^2
+      ::         &= n^2 + ◊half n^2 + ◊half n^2
+      ::         &> n^2 + 2n + 1
+      ::         &= (n+1)^2
+
+      TEXT A numbered split equation.
+      MATH .o split, eqnum, sm, label = eq1
+      :: (a+b)^2 &= (a+b)(a+b)
+      ::         &= a^2 + ab + ab + b^2
+      ::         &= a^2 + 2ab + b^2
+
+      TEXT As shown in \cref{eq1}, $(a+b)^2$ does not equal $a^2 + b^2$!
+    >>
+
+
+    % ------------------------------------------------------------ align
+    LATEX \FloatBarrier
+    SECTION \code{align}
+
+    % ------------------------------------------------------------ gather
+    LATEX \FloatBarrier
+    SECTION \code{gather}
+
+
+
+    % ------------------------------------------------------------ multiline
+    LATEX \FloatBarrier
+    SECTION \code{multiline}
+
+
+
+    % ------------------------------------------------------------ Other environments
+    LATEX \FloatBarrier
+    SECTION (label) sec:math-other :: \code{Other environments}
+
+    SUBSECTION ◊split
+    TEXT
+    :: \textbf{Revisit this text in light of it being in the \qq{other} section}
+    :: ◊MATH provides the \code{split} option to access the ◊split environment, but it is not likely to be all that useful, because of the need to enclose it in another environment. The example below shows the ◊lbt code and resulting Latex code.
+
+    LBTEXAMPLE .o float = false, horizontal, output = 1, shrinkmargin = nil
+    :: .v <<
+      MATH .o split
+      :: (a+b)^2 &= (a+b)(a+b)
+      ::         &= a^2 + ab + ab + b^2
+      ::         &= a^2 + 2ab + b^2
+    >>
+
+
+
+
+    % ------------------------------------------------------------ xxx
+    LATEX \FloatBarrier
+    SECTION \code{xxx}
+
+
+
+    % ------------------------------------------------------------ Summary
+    LATEX \FloatBarrier
+    SECTION \code{Summary of the \code{MATH} command}
+
+
+
+
+
+\end{lbt}

@@ -45,7 +45,7 @@ end
 a.LBTEXAMPLE = 1
 op.LBTEXAMPLE = { horizontal = true, vertical = false, shrinkmargin = 'nil',
                   float = false, position = 'bp', par = true, output = 2,
-                  scale = 1.0 }
+                  scale = 1.0, reseteqnum = false }
 -- output: 0 = raw only, 1 = latex code, 2 = final result. So n = number of processing stages.
 f.LBTEXAMPLE = function(_, args, o, kw)
   -- code_input is LBT code, code_output is Latex code
@@ -66,6 +66,7 @@ f.LBTEXAMPLE = function(_, args, o, kw)
     code_output = impl.verbatim_uncommented_latex_code(code_output)
   elseif o.output == 2 then
     code_output = impl.compile_lbt_to_latex_or_warning(code_input)
+    code_output = impl.reset_equation_number(o.reseteqnum, code_output)
   end
   local box = impl.lbt_example_tcolorbox { input = code_display, output = code_output,
                                            orientation = orientation, scale = o.scale }
@@ -142,6 +143,14 @@ impl.perform_substitution = function(sub_spec, text)
   local a, b = bits[1], bits[2]
   local x = text:gsub(a, b)
   return x
+end
+
+impl.reset_equation_number = function(truefalse, text)
+  if truefalse then
+    return '\\setcounter{equation}{0} ' .. text
+  else
+    return text
+  end
 end
 
 -- Sometimes we want manual linebreaks in the code for better reading.
