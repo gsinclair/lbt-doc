@@ -219,7 +219,8 @@ impl.apply_float = function(latex, o, kw)
 end
 
 a.EXAMPLETABLE = '1+'
-op.EXAMPLETABLE = { shrinkmargin = 'nil', wrapcell = 'nil', mathmode = false }
+op.EXAMPLETABLE = { shrinkmargin = 'nil', wrapcell = 'nil', mathmode = false,
+                    position = 'hbp' }
 f.EXAMPLETABLE = function(n, args, o, kw)
   local makerow = function(text)
     local text2 = text
@@ -237,13 +238,14 @@ f.EXAMPLETABLE = function(n, args, o, kw)
   }
   content = impl.apply_shrinkmargin(content, o)
   local result = T { [[
-        \begin{example} !ADJUSTCAPTIONMARGIN!
+        \begin{example}[!POSITION!] !ADJUSTCAPTIONMARGIN!
           !CONTENT!
           !CAPTION!
           \label{!LABEL!}
         \end{example}
       ]],
     values = {
+      POSITION = o.position,
       ADJUSTCAPTIONMARGIN = impl.adjustcaptionmargin(o),
       CONTENT = content,
       CAPTION = lbt.util.latex_caption_command(kw) or '',

@@ -91,10 +91,10 @@
     SUBSECTION ◊eqsplit
     TEXT
     :: The ◊amsmath environment ◊split is designed for a single logical equation that is broken into two or more lines, like the example below.
-    MATH .o eqsplit
-      :: (a+b)^2 &= (a+b)(a+b)
-      ::         &= a^2 + ab + ab + b^2
-      ::         &= a^2 + 2ab + b^2
+    % MATH .o eqsplit                 % XXX: eqsplit is not yet implemented!
+    %   :: (a+b)^2 &= (a+b)(a+b)
+    %   ::         &= a^2 + ab + ab + b^2
+    %   ::         &= a^2 + 2ab + b^2
     TEXT
     :: However, ◊split is a
     :: It must occur within another math environment, like ◊equation or ◊align, or simply \Verb|\[ ... \]|. That is because you may have several such equations grouped in the enclosing environment. A split equation gets only one number, not one number per line, and the numbering comes from the enclosing environment.

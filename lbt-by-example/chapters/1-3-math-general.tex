@@ -1,5 +1,5 @@
 \begin{lbt}
-  !NODRAFT
+  !DRAFT
   [@META]
     TEMPLATE lbt.Doc.Chapter
     TITLE Mathematical text \textsf{(lbt.Math)} -- various macros
@@ -8,13 +8,14 @@
 
   [+BODY]
     STO simplemath :: 999 :: \code{simplemath}
+    STO lbt :: 999 :: \lbtlogo{}
 
     TEXT The \package{lbt.Math} template provides several affordances for typing mathematical text.
     ITEMIZE .o compact
     :: The ◊simplemath macro is a replacement for the inline and display math environments \Verb|$ ... $| and \Verb|$$ .. $$| (or their Latex equivalents). It allows you to type mathematical text more succinctly and with fewer backslashes.
     :: The \code{integal} macro simplifies typing definite and indefinite (single) integrals.
     :: The \code{vector} and \code{vectorijk} macro greatly simplify typing vectors.
-    :: A collection of macros like \code{mathlistand}, \code{mathsum}, \code{mathseqdots} and several others provide a convenient way to type mathematical text like \qq{\mathlistand{a,b,c}} or \qq{\mathseqdots{y,1,2,3,n}}.
+    :: A collection of macros like \code{mathlistand}, \code{mathsum}, \code{mathseq} and several others provide a convenient way to type mathematical text like \qq{\mathlistand{a,b,c}} or \qq{\mathseq{y,1,2,3,...,n}}.
 
     TEXT Also found in \package{lbt.Math} is the \code{MATH} command, which aids in the typesetting of display equations. It appears in \cref{ch.math-command}.
 
@@ -149,11 +150,67 @@
 
     % ---------------------------------------------------- The mathlistand macro and friends
     LATEX \FloatBarrier
-    SECTION The \code{mathlistand} macro and friends
+    SECTION List, sequence, summation and product macros
+
+    TEXT
+    :: It is frequently necessary to type in a collection of numeric or algebraic terms expressed as a list or a sum or a product. Sometimes the terms are related, like $a_1$, $a_2$ etc. Typing such things into Latex can be a minor annoyance if each term is wrapped in dollar signs. There is repeated structure that can be abstracted by a macro, especially with a proper programming language available.
+    :: The table below shows some examples of each, with the Latex used to achieve them.
+
+    NEWCOMMAND myverb :: 1 :: \texttt{\detokenize{#1}}
+
+    TABLE .o center, fontsize = small
+    :: (spec) colspec = {lll}, row{1} = {font=\bfseries}
+    :: Desired output & Latex code
+    :: \midrule
+    :: \mathlist{a,b,c}             & \myverb{$a, b, c$}
+    :: \mathlistand{13,14,15,16}    & \myverb{$13$, $14$, $15$, and $16$}
+    :: \mathlistor{X,Y,Z}           & \myverb{$X$, $Y$, or $Z$}
+    :: \mathlist{a,b,c,...,z}       & \myverb{$a, b, c, \dots, z$}
+    :: \mathsum{1,2,3,...,n}        & \myverb{$1 + 2 + 3 + \dots + n$}
+    :: \mathseq{T,4,5,6}            & \myverb{$T_4, T_5, T_6$}
+    :: \mathseqsum{T,4,5,6}         & \myverb{$T_4 + T_5 + T_6$}
+    :: \mathseqproduct{a,1,2,...,N} & \myverb{$a_1 a_2 \dots a_N$}
+    :: \mathseqproductcdot{a,1,2,...,N} & \myverb{$a_1 \cdot a_2 \cdot \dots \cdot a_N$}
+
+    TEXT
+    :: ◊lbt offers some macros to make entering such things more convenient, which are demonstrated in \cref{ex:math-sequence-macros}. See \cref{sec:math-set-up-macros} for code to include in your preamble to gain access to these macros.
+
+    EXAMPLETABLE
+    :: (label) ex:math-sequence-macros
+    :: (caption) List/sequence macros such as \code{mathsum} and \code{mathseqproduct}
+    :: \mathlist{m,n,p,q,r}
+    :: \mathlistand{a,b,c,d}
+    :: \mathlistor{X,Y,Z}
+    :: \mathlist{3,4,5,...,9}
+    :: \mathlist{2^0,2^1,2^2,...,2^{n-1},2^n}
+    :: \mathsum{a,b,c,d,e}
+    :: \mathsum{p_1,p_2,p_3,...,p_n}
+    :: \mathproductcdot{p_1,p_2,p_3,...,p_n}
+    :: \mathseq{T,1,2,3,4,5}
+    :: \mathseqsum{T,1,2,3,4,5}
+    :: \mathseqproduct{T,1,2,3,4,5}
+    :: \mathseq{p,1,2,3,...,n}
+    :: \mathseqsum{p,22,23,24,...,29,30}
+    :: \mathseqproduct{p,1,2,...,5}
+    :: \mathseqproductcdot{p,1,2,...,5}
+
+    LATEX \FloatBarrier
+    SECTION Miscellaneous macros
+
+    TEXT
+    :: ◊lbt offers some other macros that bring convenience to certain tasks in mathematical typesetting.
+    :: Currently the only such macro is \code{primefactorisation}, which is demonstrated in \cref{ex:math-primefac}.
+
+    EXAMPLETABLE
+    :: (label) ex:math-primefac
+    :: (caption) Miscellaneous macros such as \code{primefactorisation}
+    :: \primefactorisation{2,2,2,5,7,7,19}
+    :: \primefactorisation{explicit 2,2,2,5,7,7,19}
+
 
     % ------------------------------------------------------------ Code to set up all macros
     LATEX \FloatBarrier
-    SECTION Code to set up all macros
+    SECTION (label) sec:math-set-up-macros :: Code to set up all macros
 
     TEXT
     :: As a convenience, \cref{ex:math-macros-setup} contains the code that you can paste into your preamble to obtain access to all macros described in this chapter. They are grouped for readability.
@@ -173,18 +230,15 @@
         vectilde           = lbt.Math:vectilde,
       }
       \lbtDefineLatexMacros{
+        mathlist           = lbt.Math:mathlist,
         mathlistand        = lbt.Math:mathlistand,
         mathlistor         = lbt.Math:mathlistor,
-        mathlist           = lbt.Math:mathlist,
-        mathlistdots       = lbt.Math:mathlistdots,
         mathsum            = lbt.Math:mathsum,
-        mathsumdots        = lbt.Math:mathsumdots,
+        mathproductcdot    = lbt.Math:mathproductcdot,
         mathseq            = lbt.Math:mathseq,
         mathseqsum         = lbt.Math:mathseqsum,
         mathseqproduct     = lbt.Math:mathseqproduct,
-        mathseqdots        = lbt.Math:mathseqdots,
-        mathseqdotssum     = lbt.Math:mathseqdotssum,
-        mathseqdotsproduct = lbt.Math:mathseqdotsproduct,
+        mathseqproductcdot = lbt.Math:mathseqproductcdot,
       }
       \lbtDefineLatexMacros{
         primefactorisation = lbt.Math:primefactorisation,
