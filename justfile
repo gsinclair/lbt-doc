@@ -26,3 +26,8 @@ build-specific filename:
 [no-cd]
 edit:
   nvim {{project}}.tex chapters/*.tex
+
+# Create/update file lbt-by-example-LATEST.pdf (for github release)
+[no-cd]
+latest:
+  cp {{project}}.pdf ../{{project}}-LATEST.pdf
