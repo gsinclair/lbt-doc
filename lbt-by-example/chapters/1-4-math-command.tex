@@ -33,14 +33,18 @@
     TEXT
     :: Setting a display equation with \Verb|\[ ... \]|\footnote{◊fn1} is enough for a great many cases. If you want your equation to be numbered, you upgrade to the \code{equation} environment. If the math content to be displayed is more complicated than that, the author should decide which of the following applies:
     ITEMIZE .o compact
-    :: there is one logical equation with several parts (separated by $=$ or $>$ or \dots) that should appear on separate lines;
-    :: there is one logical equation that is too long to fit on one line;
-    :: there are several logical equations to be displayed together, centered or left-aligned;
-    :: there are several logical equations to be displayed reasonably simple alignment;
-    :: there are more complicated alignment requirements, perhaps involving comments to the side
+    :: there is one logical equation with several parts (separated by $=$ or $>$ or \dots) that should appear on separate lines (\code{split});
+    :: there is one logical equation that is too long to fit on one line (\code{multline});
+    :: there are several logical equations to be displayed together (\code{gather});
+    :: there are several logical equations to be displayed reasonably with alignment (\code{align});
+    :: there are more complicated alignment requirements, perhaps involving comments to the side (also \code{align}).
     TEXT
-    :: Based on that, the author can choose an ◊amsmath environment, as summarised in \cref{table:amsmath-envs}. The table does not show \emph{all} available environments, but it gives a good overview for readers who are not already familiar.
+    :: Based on that, the author can choose an ◊amsmath environment, which are demonstrated in \cref{table:amsmath-envs}. The table does not show \emph{all} available environments, but it gives a good overview for readers who are not already familiar.
     :: The sections of this chapter give more detailed information on these environments and more.
+
+    NOTE In normal Latex code, equations are numbered by default. If you use the \code{align} environment then all lines are numbered. If you use \code{align*} then none of them are. \par \indent ◊lbt is similar: use \code{MATH} to get numbered equations and \code{MATH*} to suppress numbereding. If you want unnumbered equations by default, set the oparg \code{MATH.eqnum = false}.
+
+    TEXT The ◊lbt examples that follow will demonstrate fully numbered, partially numbered, and unnumbered equations, as appropriate to the environment being demonstrated.
 
     % NEWCOMMAND amsexample :: 2 :: \begin{minipage}{7cm}{\begin{#1} #2 \end{#1}}
     NEWCOMMAND amsexample :: 2 :: \begin{minipage}{\linewidth}{\setcounter{equation}{0}\begin{#1} #2 \end{#1}}\end{minipage}
@@ -63,32 +67,51 @@
     :: ◊multline & \amsexample{multline}{(1+x)^n = \sum_{r=0}^n \binom{n}{r}\,x^r = 1 + \binom n1 x + \binom n2 x^2 \\ + \dots + \binom nr x^r + \dots + \binom nn x^n}
 
     % ------------------------------------------------------------ equation
-    SECTION ◊equation
+    SECTION Simple equations with \code{MATH}
 
     TEXT
-    :: The ◊equation environment provides for a simple numbered equation. \cref{ex:math-equation} demonstrates this in ◊lbt.
-    :: Equation numbering is suppressed by default (◊lbt author's preference), but is enabled with the \code{eqnum} oparg. If you want equation numbering enabled by default, you can set \code{MATH.eqnum = true} as a local or global oparg. See \textbf{Section ??? -- to be written}. Then you can specify \code{.o noeqnum} for a particular equation if you wish.
-    :: This aspect of equation numbering -- off by default -- applies to all environments shown in this chapter.
+    :: The ◊equation environment provides for a simple numbered equation. \cref{ex:math-equation} demonstrates this in ◊lbt. ◊equation is in fact the default environment, so you can just write \code{MATH F = ma}, as the example shows.
 
     LBTEXAMPLE .o horizontal, reseteqnum
     :: (label) ex:math-equation
     :: (caption) \code{MATH .o equation} to format a simple equation
     :: .v <<
       TEXT Newton's second law is known to many.
-      MATH .o equation :: F = ma
-
-      TEXT You can specify that the equation should be numbered.
-      MATH .o equation, eqnum :: F = ma
-
-      TEXT Finally, equation is the \emph{default} environment for \code{MATH}, so you can simply write:
       MATH F = ma
+
+      TEXT You can suppress numbering in two ways.
+      MATH* F = ma
+      MATH .o noeqnum :: F = ma
+
+      TEXT \code{equation} is the \emph{default} environment for \code{MATH}, but you can be explicit if you wish.
+      MATH .o equation :: F = ma
+    >>
+
+    % ------------------------------------------------------------ multiline
+    LATEX \FloatBarrier
+    SECTION Long equations with \code{MATH .o multiline}
+
+    TEXT
+    :: If an equation is too long for one line, you can insert linebreaks and the \package{amsmath} environment ◊multline will handle formatting with a mixture of left, center and right justification. \cref{ex:math-multiline} demonstrates.
+    :: Both \code{MATH .o multiline} and \code{MATH .o multline} work, and do the same thing.
+    :: Note that the example includes the oparg \code{sm = false} to disable ◊simplemath. This is necessary to prevent \code{be} from being rendered as \sm{be}.
+
+    LBTEXAMPLE .o vertical, position = htbp
+    :: (label) ex:math-multline-1
+    :: (caption) A long equation with \code{multiline}
+    :: .v <<
+      TEXT The display environment below has its margins adjusted so that the effect of \code{multiline} can best be seen.
+
+      MATH .o multiline, sm = false, adjustwidth = 2cm 2cm
+      :: (a+b+c+d+e)^2 =
+      :: a^2 + 2ab + 2ac + 2ad + 2ae + b^2 + 2bc + 2bd + 2be
+      :: + c^2 + 2cd + 2ce + d^2 + 2de + e^2
     >>
 
     % ------------------------------------------------------------ eqsplit
     LATEX \FloatBarrier
     SECTION ◊eqsplit
 
-    SUBSECTION ◊eqsplit
     TEXT
     :: The ◊amsmath environment ◊split is designed for a single logical equation that is broken into two or more lines, like the example below.
     MATH .o eqsplit
@@ -96,48 +119,58 @@
       ::         &= a^2 + ab + ab + b^2
       ::         &= a^2 + 2ab + b^2
     TEXT
-    :: However, ◊split is a
-    :: It must occur within another math environment, like ◊equation or ◊align, or simply \Verb|\[ ... \]|. That is because you may have several such equations grouped in the enclosing environment. A split equation gets only one number, not one number per line, and the numbering comes from the enclosing environment.
-    :: \textbf{The same thing is said three times below. Time to edit!}
-    :: It is often inconvenient not to be able to treat ◊split as a top-level environment, so \code{MATH} provides \code{eqsplit}, which is ◊split wrapped in ◊equation. \cref{ex:math-eqsplit} demonstrates this feature.
-    :: For convenience, \code{MATH} provides ◊eqsplit, which is a ◊split environment wrapped in an ◊equation environment.
-    :: If you want to show an equation split across several lines, chances are good it's the \emph{only} equation you want to show, which means in ordinary Latex you have an ◊equation environment containing a ◊split environment and nothing else. To handle this common case, ◊lbt provides ◊eqsplit, demonstrated in \cref{ex:math-eqsplit}. This example also shows that ◊simplemath can be used if you specify the \code{sm} oparg.
+    :: However, ◊split is a sub-environment that can only occur within a display environment like ◊equation or ◊gather or ◊align. The most common use would be for a ◊split appear alone in an ◊equation environment, so ◊lbt provides \code{MATH .o eqsplit} for that purpose.
+    :: An ◊eqsplit equation gets one number overall, not one number per line, because it is one logical equation. It is the ◊equation environment that provides the number, not the contained ◊split.
+    :: \cref{ex:math-eqsplit-1} demonstrates an unnumbered split equation that is aligned on $=$ and~$>$. \cref{ex:math-eqsplit-2} shows a split equation that is numbered and referenced.
 
-    LBTEXAMPLE .o vertical
-    :: (label) ex:math-eqsplit
+    LBTEXAMPLE .o vertical, position = htbp
+    :: (label) ex:math-eqsplit-1
     :: (caption) Using \code{MATH .o eqsplit} for a multi-step equation
     :: .v <<
       TEXT Part of a proof by induction.
       STO half :: 1 :: $\tfrac 1 2$
-      MATH .o eqsplit, sm
+      MATH* .o eqsplit
       :: 2^{n+1} &= 2 cdot 2^n
       ::         &> 2 cdot n^2
       ::         &= n^2 + ◊half n^2 + ◊half n^2
       ::         &> n^2 + 2n + 1
       ::         &= (n+1)^2
+    >>
 
-      TEXT A numbered split equation.
-      MATH .o eqsplit, eqnum, sm, label = eq1
+    TEXT Note that it could be desirable to add aligned comments off to the right in \cref{ex:math-eqsplit-1}. Unfortunately that is not possible with ◊eqsplit (or the underlying ◊split). Later, in \cref{sec:math-align}, this example will be revisited. The problem there is that ◊align gives one number per line, because it sees each line as a separate equation.
+
+    LBTEXAMPLE .o vertical, position = htbp
+    :: (label) ex:math-eqsplit-2
+    :: (caption) A \code{MATH .o eqsplit} equation that is referenced
+    :: .v <<
+      MATH .o eqsplit, label = eq1
       :: (a+b)^2 &= (a+b)(a+b)
       ::         &= a^2 + ab + ab + b^2
       ::         &= a^2 + 2ab + b^2
 
-      TEXT As shown in \cref{eq1}, $(a+b)^2$ does not equal $a^2 + b^2$!
+      TEXT As shown in \eqref{eq1}, $(a+b)^2$ does not equal $a^2 + b^2$!
+    >>
+
+
+    LBTEXAMPLE .o vertical
+    :: (label) ex:math-eqsplit-2
+    :: (caption) Using \code{eqsplit} to improve the formatting of a long equation
+    :: .v <<
+      MATH* .o eqsplit
+      :: (x - r_1)(x - r_2)(x - r_3)(x - r_4)
+      :: quad &= x^4 - (r_1 + r_2 + r_3 + r_4)\,x^3
+      ::      &+ (r_1r_2 + r_1r_3 + r_1r_4 + r_2r_3 + r_2r_4 + r_3r_4)\,x^2
+      ::      &- (r_1r_2r_3 + r_1r_2r_4 + r_1r_3r_4 + r_2r_3r_4)\,x
+      ::      &+ r_1r_2r_3r_4
     >>
 
     % ------------------------------------------------------------ align
     LATEX \FloatBarrier
-    SECTION \code{align}
+    SECTION (label) sec:math-align :: \code{align}
 
     % ------------------------------------------------------------ gather
     LATEX \FloatBarrier
     SECTION \code{gather}
-
-
-
-    % ------------------------------------------------------------ multiline
-    LATEX \FloatBarrier
-    SECTION \code{multiline}
 
 
 
