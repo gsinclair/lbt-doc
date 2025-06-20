@@ -166,6 +166,7 @@ end
 impl.verbatim_uncommented_latex_code = function(text)
   local lines = lbt.util.newline_split(text)
   lines = lines:filter(function(x) return not x:startswith('%') end)
+  lines = lines:filter(function(x) return not x:match('lbtDebugLog') end)
   return F([[
 \begin{Verbatim}
 %s

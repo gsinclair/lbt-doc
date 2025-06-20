@@ -91,10 +91,10 @@
     SUBSECTION ◊eqsplit
     TEXT
     :: The ◊amsmath environment ◊split is designed for a single logical equation that is broken into two or more lines, like the example below.
-    % MATH .o eqsplit                 % XXX: eqsplit is not yet implemented!
-    %   :: (a+b)^2 &= (a+b)(a+b)
-    %   ::         &= a^2 + ab + ab + b^2
-    %   ::         &= a^2 + 2ab + b^2
+    MATH .o eqsplit
+      :: (a+b)^2 &= (a+b)(a+b)
+      ::         &= a^2 + ab + ab + b^2
+      ::         &= a^2 + 2ab + b^2
     TEXT
     :: However, ◊split is a
     :: It must occur within another math environment, like ◊equation or ◊align, or simply \Verb|\[ ... \]|. That is because you may have several such equations grouped in the enclosing environment. A split equation gets only one number, not one number per line, and the numbering comes from the enclosing environment.
@@ -109,7 +109,7 @@
     :: .v <<
       TEXT Part of a proof by induction.
       STO half :: 1 :: $\tfrac 1 2$
-      MATH .o split, sm
+      MATH .o eqsplit, sm
       :: 2^{n+1} &= 2 cdot 2^n
       ::         &> 2 cdot n^2
       ::         &= n^2 + ◊half n^2 + ◊half n^2
@@ -117,14 +117,13 @@
       ::         &= (n+1)^2
 
       TEXT A numbered split equation.
-      MATH .o split, eqnum, sm, label = eq1
+      MATH .o eqsplit, eqnum, sm, label = eq1
       :: (a+b)^2 &= (a+b)(a+b)
       ::         &= a^2 + ab + ab + b^2
       ::         &= a^2 + 2ab + b^2
 
       TEXT As shown in \cref{eq1}, $(a+b)^2$ does not equal $a^2 + b^2$!
     >>
-
 
     % ------------------------------------------------------------ align
     LATEX \FloatBarrier
