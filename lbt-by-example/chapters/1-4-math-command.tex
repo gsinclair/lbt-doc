@@ -115,6 +115,38 @@
       :: + c^2 + 2cd + 2ce + d^2 + 2de + e^2
     >>
 
+    % ------------------------------------------------------------ gather
+    LATEX \FloatBarrier
+    SECTION \code{gather}
+
+    TEXT
+    :: If you have a few equations that you want to display at once, and aren't too fussed about how they are presented, then you ◊gather them and they will each be centered and numbered. Two examples suffice. \cref{ex:math-gather-1} demonstrates the default numbering. \cref{ex:math-gather-2} demonstrates selective numbering. If you want no numbering, just use \code{MATH*}.
+    :: Note that the first example (\cref{ex:math-gather-1}) demonstrates the oparg \code{linespace}, which provides some extra space between the lines.
+
+    LBTEXAMPLE .o vertical
+    :: (label) ex:math-gather-1
+    :: (caption) Displaying several equations with ◊gather
+    :: .v <<
+      TEXT Some interesting series results.
+      MATH .o gather, linespace = 1ex
+      % :: sum_{k=1}^n k = \tfrac12 n (n+1)
+      :: sum_{n=1}^infty frac 1 {n^2} = frac {pi^2} 6
+      :: sum_{n=0}^infty frac {x^n} {n!} = e^x
+    >>
+
+    LBTEXAMPLE .o vertical
+    :: (label) ex:math-gather-2
+    :: (caption) ◊gather with selective numbering
+    :: .v <<
+      TEXT Area formulas you must know:
+      MATH .o gather, eqnum = 2 4
+      :: A = pi r ^2
+      :: A = pi a b       \label{eq:a1}
+      :: A = \tfrac12 b h
+      :: A = \tfrac12 x y   \label{eq:a2}
+      TEXT We'll discuss \cref{eq:a1} and \cref{eq:a2} in more detail\dots
+    >>
+
     % ------------------------------------------------------------ eqsplit
     LATEX \FloatBarrier
     SECTION (label) sec:eqsplit
@@ -174,6 +206,7 @@
     :: ◊alignat requires the author to specify the number of columns and to control the spacing between them.
     TEXT There are different logical uses for the alignment environments, as the subsections below demonstrate.
 
+    % ------------------------------------------------------------ align: 1
     SUBSECTION Presenting a group of equations with simple alignment
 
     TEXT
@@ -215,6 +248,7 @@
       ::        c^2 &= a^2 + b^2
     >>
 
+    % ------------------------------------------------------------ align: 2
     SUBSECTION Aligning equations in multiple columns
 
     TEXT Suppose you wanted to demonstrate three kinds of derivative: polynomial, trigonometric and exponential. And you wanted to do so in minimal vertical space. Then you might typeset something like \cref{ex:math-align-multi-1}.
@@ -223,12 +257,12 @@
     :: (label) ex:math-align-multi-1
     :: (caption) Alignment in multiple columns
     :: .v <<
-      MATH .o align
+      MATH* .o align
       :: f(x)  &= x^3 - 7x^2 + 4x + 1  & g(x)  &= sin(2x) - tan x  & h(x)  &= 3^x
       :: f'(x) &= 6x^2 - 14x + 4       & g'(x) &= 2cos(2x) - sec2x & h'(x) &= 3^x\:ln 3
     >>
 
-    TEXT The space between the \qq{columns} is determined by the ◊amsmath package -- see the relevant documentation for details. If you want to really spread things out, you can use ◊flalign, which uses the \qq{full length} of the page, as shown in \cref{ex:math-align-multi-2}. Numbering is suppressed in that example to show the effect better.
+    TEXT The space between the \qq{columns} is determined by the ◊amsmath package -- see the relevant documentation for details. If you want to really spread things out, you can use ◊flalign, which uses the \qq{full length} of the page, as shown in \cref{ex:math-align-multi-2}.
 
     LBTEXAMPLE .o vertical
     :: (label) ex:math-align-multi-2
@@ -252,6 +286,7 @@
 
     TEXT Generally speaking, the default spacing should be sufficient. A more useful purpose for ◊alignat is shown in \emph{\nameref{subsec:multi-points}} on \cpageref{subsec:multi-points}, where polynomials have their like terms lined up regardless of the width of coefficients.
 
+    % ------------------------------------------------------------ align: 3
     SUBSECTION Improving the display of a single long equation
 
     TEXT Earlier, we saw how ◊multiline can be used to manually break up an equation that doesn't fit on one line. The mixed-justification formatting that ◊multiline applies may suit some equations but not others. If you prefer a left-justified equation as shown in \cref{ex:math-align-multiline-1}, this can be achieved with ◊alignat and a single column. Note the use of \Verb|\MoveEqLeft| from the \package{mathtools} package to place the first line correctly. Also note the use of \Verb|\phantom{=\ }| to align the continuation lines nicely.
@@ -271,6 +306,7 @@
     >>
 
 
+    % ------------------------------------------------------------ align: 4
     SUBSECTION Providing comments to the right
 
     TEXT It is common that an author wants to write some brief commentary to the right of a line of working in a multi-step equation. We can achieve this using ◊align with two columns, as \cref{ex:math-align-commentary-1} demonstrates.
@@ -329,17 +365,14 @@
       TEXT The techniques in \eqref{eq:induc} should be mastered by all students.
     >>
 
+    % ------------------------------------------------------------ align: 5
     SUBSECTION Incorporating lines of text
 
+    % ------------------------------------------------------------ align: 6
     SUBSECTION (label) subsec:multi-points :: Multiple alignment points among equations
 
+    % ------------------------------------------------------------ align: 7
     SUBSECTION Aligning equations near the left margin
-
-    % ------------------------------------------------------------ gather
-    LATEX \FloatBarrier
-    SECTION \code{gather}
-
-
 
     % ------------------------------------------------------------ Other environments
     LATEX \FloatBarrier
