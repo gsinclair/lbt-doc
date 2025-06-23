@@ -199,6 +199,12 @@ end
 
 impl.apply_float = function(latex, o, kw)
   if o.float then
+    local caption_latex = '(caption)'
+    if kw.caption and kw.shortcaption then
+      caption_latex = F([[\caption[%s]{%s}]], kw.shortcaption, kw.caption)
+    elseif kw.caption then
+      caption_latex = F([[\caption{%s}]], kw.caption)
+    end
     return T { [[
         \begin{example}[!POSITION!] !ADJUSTCAPTIONMARGIN!
           !CONTENT!
@@ -210,7 +216,7 @@ impl.apply_float = function(latex, o, kw)
         ADJUSTCAPTIONMARGIN = impl.adjustcaptionmargin(o),
         POSITION = o.position,
         CONTENT = latex,
-        CAPTION = kw.caption and F([[\caption{%s}]], kw.caption) or '(caption)',
+        CAPTION = caption_latex,
         LABEL = kw.label or 'ex:abc',
       }
     }
@@ -310,4 +316,3 @@ return {
   posargs   = a,
   macros    = m,
 }
-
