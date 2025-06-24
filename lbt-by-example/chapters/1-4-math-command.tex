@@ -22,6 +22,9 @@
     STO eqalignedat :: 999 :: \code{eqalignedat}
     STO flalign :: 999 :: \code{flalign}
     STO gather :: 999 :: \code{gather}
+    STO eqgathered :: 999 :: \code{eqgathered}
+    STO eqlgathered :: 999 :: \code{eqlgathered}
+    STO eqrgathered :: 999 :: \code{eqrgathered}
     STO multline :: 999 :: \code{multline}
     STO simplemath :: 999 :: \code{simplemath}
     STO xxx :: 999 :: \code{xxx}
@@ -144,8 +147,36 @@
       :: A = pi a b       \label{eq:a1}
       :: A = \tfrac12 b h
       :: A = \tfrac12 x y   \label{eq:a2}
-      TEXT We'll discuss \cref{eq:a1} and \cref{eq:a2} in more detail\dots
+      TEXT We'll discuss \eqref{eq:a1} and \eqref{eq:a2} in more detail\dots
     >>
+
+    SUBSECTION Building-block variants of ◊gather
+
+    TEXT
+    :: Using ◊gathered instead of ◊gather, you can gather some equations into one logical object, and place that inside of ◊equation (or another display environment) to assign an equation number. In addition to ◊amsmath's ◊gathered, ◊mathtools provides ◊lgathered and ◊rgathered, which justify the equations left or right within the centered block.
+    :: ◊lbt provides ◊eqgathered and ◊eqlgathered and ◊eqrgathered as composite environments which wrap the building-block inside ◊equation. These are likely to be of only niche interest. \cref{ex:math-gather-3} and \cref{ex:math-gather-4} demonstrate these environments. Note the way they assign only one equation number.
+
+    LBTEXAMPLE .o vertical
+    :: (label) ex:math-gather-3
+    :: (caption) ◊eqgathered: a single equation number for a gathered block
+    :: .v <<
+      MATH .o eqgathered
+      :: sin x = text{opp} / text{hyp} quad text{and} quad cos x = text{adj} / text{hyp}
+      :: sin2x + cos2x equiv 1
+    >>
+
+    LBTEXAMPLE .o vertical
+    :: (label) ex:math-gather-4
+    :: (caption) The left/right justified variants of ◊eqgathered
+    :: .v <<
+      MATH .o eqlgathered
+      :: sin x = text{opp} / text{hyp} quad text{and} quad cos x = text{adj} / text{hyp}
+      :: sin2x + cos2x equiv 1
+      MATH .o eqrgathered
+      :: sin x = text{opp} / text{hyp} quad text{and} quad cos x = text{adj} / text{hyp}
+      :: sin2x + cos2x equiv 1
+    >>
+
 
     % ------------------------------------------------------------ eqsplit
     LATEX \FloatBarrier
