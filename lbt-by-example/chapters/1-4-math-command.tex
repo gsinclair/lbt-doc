@@ -399,6 +399,24 @@
     % ------------------------------------------------------------ align: 5
     SUBSECTION Incorporating lines of text
 
+    TEXT Sometimes you want to interrupt a sequence of aligned equations to provide a line or even paragraph of commentary. This is achieved with the ◊amsmath command ◊intertext or (if tighter vertical spacing is desired) the ◊mathtools command ◊shortintertext. In ◊lbt you can use these as you would in plain Latex, or you can use the more ◊lbt-ish versions \code{TEXT} and \code{SHORTTEXT}. \cref{ex:math-align-intertext-1} demonstrates.
+
+    LBTEXAMPLE .o vertical
+    :: (label) ex:math-align-intertext
+    :: (caption) Including a line of text amidst an aligned block
+    :: .v <<
+      MATH* .o align
+      :: S_n &= a + ar + ar^2 + dots + ar^{n-1}
+      :: \intertext{Multiply both sides by $r\,$:}
+      :: r S_n &= ar + ar^2 + ar^3 + dots + ar^n
+      :: \intertext{Now subtract the second equation from the first:}
+      :: S_n - r S_n &= (a + ar + ar^2 + dots + ar^{n-1}) - (ar + ar^2 + dots + ar^n)
+      :: \intertext{All terms cancel except the first and the last:}
+      :: (1 - r) S_n &= a - ar^n
+      :: \intertext{Finally, divide both sides by $1-r$ (assuming $r \neq 1$):}
+      :: S_n &= frac {a(1 - r^n)} {1 - r}
+    >>
+
     % ------------------------------------------------------------ align: 6
     SUBSECTION (label) subsec:multi-points :: Multiple alignment points among equations
 
