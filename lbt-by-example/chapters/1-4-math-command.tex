@@ -11,7 +11,7 @@
     STO lbt :: 999 :: \lbtlogo{}
     STO MATH :: 999 :: \code{MATH}
     STO amsmath :: 999 :: \package{amsmath}
-    STO mathtools :: 999 :: \package{amsmath}
+    STO mathtools :: 999 :: \package{mathtools}
     STO split :: 999 :: \code{split}
     STO eqsplit :: 999 :: \code{eqsplit}
     STO equation :: 999 :: \code{equation}
@@ -22,11 +22,16 @@
     STO eqalignedat :: 999 :: \code{eqalignedat}
     STO flalign :: 999 :: \code{flalign}
     STO gather :: 999 :: \code{gather}
+    STO gathered :: 999 :: \code{gathered}
+    STO lgathered :: 999 :: \code{lgathered}
+    STO rgathered :: 999 :: \code{rgathered}
     STO eqgathered :: 999 :: \code{eqgathered}
     STO eqlgathered :: 999 :: \code{eqlgathered}
     STO eqrgathered :: 999 :: \code{eqrgathered}
     STO multline :: 999 :: \code{multline}
     STO simplemath :: 999 :: \code{simplemath}
+    STO continuation :: 999 :: \code{continuation}
+    STO commentary :: 999 :: \code{commentary}
     STO xxx :: 999 :: \code{xxx}
     STO xxx :: 999 :: \code{xxx}
 
@@ -191,7 +196,7 @@
       ::         &= a^2 + 2ab + b^2
     TEXT
     :: However, ◊split is a sub-environment that can only occur within a display environment like ◊equation or ◊gather or ◊align. The most common use would be for a ◊split appear alone in an ◊equation environment, so ◊lbt provides \code{MATH .o eqsplit} for that purpose.
-    :: An ◊eqsplit equation gets one number overall, not one number per line, because it is one logical equation. It is the ◊equation environment that provides the number, not the contained ◊split.
+    :: An ◊eqsplit equation gets one number overall, not one number per line, because it is one logical equation. It is the ◊equation environment that provides the number, not the ◊split environment contained within.
     :: \cref{ex:math-eqsplit-1} demonstrates an unnumbered split equation that is aligned on $=$ and~$>$. \cref{ex:math-eqsplit-2} shows a split equation that is numbered and referenced.
 
     LBTEXAMPLE .o horizontal, position = htbp
@@ -208,7 +213,7 @@
       ::         &= (n+1)^2
     >>
 
-    TEXT Note that it could be desirable to add aligned comments off to the right in \cref{ex:math-eqsplit-1}. Unfortunately that is not possible with ◊eqsplit (or the underlying ◊split). Later, in \cref{sec:math-align}, this example will be revisited. The problem there is that ◊align gives one number per line, because it sees each line as a separate equation.
+    TEXT Note that it could be desirable to add aligned comments to the right of each line in \cref{ex:math-eqsplit-1}. Unfortunately that is not possible with ◊eqsplit (or the underlying ◊split). Later, in \cref{sec:math-align}, this example will be revisited using the more flexible ◊align. However, ◊align emits one equation number per line, because it sees each line as a separate equation. So it is not a perfect match for providing side-by-side commentary, but it can be adapted to the task.
 
     LBTEXAMPLE .o horizontal, position = htbp
     :: (label) ex:math-eqsplit-2
@@ -238,6 +243,7 @@
     TEXT There are different logical uses for the alignment environments, as the subsections below demonstrate.
 
     % ------------------------------------------------------------ align: 1
+    LATEX \FloatBarrier
     SUBSECTION Presenting a group of equations with simple alignment
 
     TEXT
@@ -250,7 +256,7 @@
     :: .v <<
       TEXT All equations numbered (the default).
       MATH .o align
-      :: (a+b)^3    &= a^3 + 3a^2b + 3ab^2 + b^3
+      ::    (a+b)^3 &= a^3 + 3a^2b + 3ab^2 + b^3
       :: (a-b)(a+b) &= a^2 - b^2
       ::        c^2 &= a^2 + b^2
     >>
@@ -261,7 +267,7 @@
     :: .v <<
       TEXT Numbering suppressed.
       MATH* .o align
-      :: (a+b)^3    &= a^3 + 3a^2b + 3ab^2 + b^3
+      ::    (a+b)^3 &= a^3 + 3a^2b + 3ab^2 + b^3
       :: (a-b)(a+b) &= a^2 - b^2
       ::        c^2 &= a^2 + b^2
     >>
@@ -274,12 +280,13 @@
     :: .v <<
       TEXT Selective numbering.
       MATH .o align, eqnum = 1 3
-      :: (a+b)^3    &= a^3 + 3a^2b + 3ab^2 + b^3
+      ::    (a+b)^3 &= a^3 + 3a^2b + 3ab^2 + b^3
       :: (a-b)(a+b) &= a^2 - b^2
       ::        c^2 &= a^2 + b^2
     >>
 
     % ------------------------------------------------------------ align: 2
+    LATEX \FloatBarrier
     SUBSECTION Aligning equations in multiple columns
 
     TEXT Suppose you wanted to demonstrate three kinds of derivative: polynomial, trigonometric and exponential. And you wanted to do so in minimal vertical space. Then you might typeset something like \cref{ex:math-align-multi-1}.
@@ -318,6 +325,7 @@
     TEXT Generally speaking, the default spacing should be sufficient. A more useful purpose for ◊alignat is shown in \emph{\nameref{subsec:multi-points}} on \cpageref{subsec:multi-points}, where polynomials have their like terms lined up regardless of the width of coefficients.
 
     % ------------------------------------------------------------ align: 3
+    LATEX \FloatBarrier
     SUBSECTION Improving the display of a single long equation
 
     TEXT Earlier, we saw how ◊multiline can be used to manually break up an equation that doesn't fit on one line. The mixed-justification formatting that ◊multiline applies may suit some equations but not others. If you prefer a left-justified equation as shown in \cref{ex:math-align-multiline-1}, this can be achieved with ◊alignat and a single column. Note the use of \Verb|\MoveEqLeft| from the \package{mathtools} package to place the first line correctly. Also note the use of \Verb|\phantom{=\ }| to align the continuation lines nicely.
@@ -338,6 +346,7 @@
 
 
     % ------------------------------------------------------------ align: 4
+    LATEX \FloatBarrier
     SUBSECTION Providing comments to the right
 
     TEXT It is common that an author wants to write some brief commentary to the right of a line of working in a multi-step equation. We can achieve this using ◊align with two columns, as \cref{ex:math-align-commentary-1} demonstrates.
@@ -397,30 +406,34 @@
     >>
 
     % ------------------------------------------------------------ align: 5
+    LATEX \FloatBarrier
     SUBSECTION Incorporating lines of text
 
     TEXT Sometimes you want to interrupt a sequence of aligned equations to provide a line or even paragraph of commentary. This is achieved with the ◊amsmath command ◊intertext or (if tighter vertical spacing is desired) the ◊mathtools command ◊shortintertext. In ◊lbt you can use these as you would in plain Latex, or you can use the more ◊lbt-ish versions \code{TEXT} and \code{SHORTTEXT}. \cref{ex:math-align-intertext-1} demonstrates.
 
+    CTRL microdebug :: on
     LBTEXAMPLE .o vertical
     :: (label) ex:math-align-intertext
     :: (caption) Including a line of text amidst an aligned block
     :: .v <<
-      MATH* .o align
-      :: S_n &= a + ar + ar^2 + dots + ar^{n-1}
-      :: \intertext{Multiply both sides by $r\,$:}
-      :: r S_n &= ar + ar^2 + ar^3 + dots + ar^n
-      :: \intertext{Now subtract the second equation from the first:}
+      MATH .o align, eqnum = 3 5
+      ::         S_n &= a + ar + ar^2 + dots + ar^{n-1}
+      :: TEXT Multiply both sides by $r\,$:
+      ::       r S_n &= ar + ar^2 + ar^3 + dots + ar^n
+      :: TEXT Now subtract the second equation from the first:
       :: S_n - r S_n &= (a + ar + ar^2 + dots + ar^{n-1}) - (ar + ar^2 + dots + ar^n)
-      :: \intertext{All terms cancel except the first and the last:}
+      :: TEXT All terms cancel except the first and the last:
       :: (1 - r) S_n &= a - ar^n
-      :: \intertext{Finally, divide both sides by $1-r$ (assuming $r \neq 1$):}
-      :: S_n &= frac {a(1 - r^n)} {1 - r}
+      :: TEXT Finally, divide both sides by $1-r$ (assuming $r \neq 1$):
+      ::         S_n &= frac {a(1 - r^n)} {1 - r}
     >>
 
     % ------------------------------------------------------------ align: 6
+    LATEX \FloatBarrier
     SUBSECTION (label) subsec:multi-points :: Multiple alignment points among equations
 
     % ------------------------------------------------------------ align: 7
+    LATEX \FloatBarrier
     SUBSECTION Aligning equations near the left margin
 
     % ------------------------------------------------------------ Other environments
@@ -440,8 +453,44 @@
       ::         &= a^2 + 2ab + b^2
     >>
 
+    % ------------------------------------------------------------ Additional environments
+    LATEX \FloatBarrier
+    SECTION (label) sec:math-other :: \code{Additional environments}
 
+    TEXT
+    :: ◊MATH's main \emph{raison d'être} is to provide convenient ◊lbt-style access to the ◊amsmath and ◊mathtools environments. However, two use cases demonstrated in \cref{ex:math-align-multiline-1} (allowing an equation to \qq{continue} over multiple lines) and \cref{ex:math-align-commentary-3} (providing neatly aligned \qq{commentary} to the right) have some boilerplate code that could be abstracted away. Thus ◊MATH provides the ◊continuation and ◊commentary psuedo-environments.
+    :: The two examples cited above are reproduced inline in the subsections below, for convenience, to provide an easy comparison between the ◊amsmath-style approach and the ◊lbt-style approach.
 
+    SUBSECTION ◊continuation
+
+    TEXT \cref{ex:math-align-multiline-1} demonstrated a long equation continuing over several lines with left justification and attention to alignment. The example is reproduced below for convenvience.
+
+    LBTEXAMPLE .o vertical, float = false
+    :: .v <<
+      STO ph :: 1 :: \phantom{=\ }
+      MATH .o alignat, ncols = 1, eqnum = 5
+      :: \MoveEqLeft (x - r_1)(x - r_2)(x - r_3)(x - r_4)
+      :: quad &= x^4 - (r_1 + r_2 + r_3 + r_4)x^3
+      ::      &◊ph + (r_1r_2 + r_1r_3 + r_1r_4 + r_2r_3 + r_2r_4 + r_3r_4)x^2
+      ::      &◊ph - (r_1r_2r_3 + r_1r_2r_4 + r_1r_3r_4 + r_2r_3r_4)x
+      ::      &◊ph + r_1r_2r_3r_4
+    >>
+
+    TEXT ◊MATH provides a ◊continuation option that allows the same result to be achieved more easily, relieving authors of the need to be experts in \code{phantom} and \code{MoveEqLeft}. It is demonstrated in \cref{ex:math-continuation}.
+
+    LBTEXAMPLE .o vertical
+    :: (label) ex:math-continuation
+    :: (caption) ◊continuation supporting neat display of a long equation
+    :: .v <<
+      MATH .o continuation
+      :: (x - r_1)(x - r_2)(x - r_3)(x - r_4)
+      :: = x^4 - (r_1 + r_2 + r_3 + r_4)x^3
+      ::   + (r_1r_2 + r_1r_3 + r_1r_4 + r_2r_3 + r_2r_4 + r_3r_4)x^2
+      ::   - (r_1r_2r_3 + r_1r_2r_4 + r_1r_3r_4 + r_2r_3r_4)x
+      ::   + r_1r_2r_3r_4
+    >>
+
+    TEXT The code produced behind the scenes is the same as the code demonstrated above, using ◊alignat and \code{MoveEqLeft} and \code{phantom}.
 
     % ------------------------------------------------------------ Combinations
     LATEX \FloatBarrier
