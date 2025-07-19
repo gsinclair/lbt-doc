@@ -89,6 +89,7 @@
     >>
 
     TEXT \cref{ex:basic-justification} demonstrates \code{FLUSHLEFT}, \code{FLUSHRIGHT} and \code{CENTER}, which affect the justification of the contained paragraph(s). Incidentally, it also demonstrates \code{STO}, which saves (\qq{stores}) some content for a limited amount of time. For more information about \code{STO}, see \cref{ex:sto}.
+    NOTE There is not currently an example for \code{STO}.
 
     LBTEXAMPLE .o vertical
     :: (caption) Left, center and right justification
@@ -126,15 +127,15 @@
       TEXT We now compute the definite integral of $f(x)$ from $-1$ to $2\pi$:
       LATEX .v <<
         \begin{align*}
-        \int_{-1}^{2\pi} f(x)\,dx 
-        &= \int_{-1}^{0} x^2\,dx 
-          + \int_{0}^{\pi} \sin x\,dx 
+        \int_{-1}^{2\pi} f(x)\,dx
+        &= \int_{-1}^{0} x^2\,dx
+          + \int_{0}^{\pi} \sin x\,dx
           + \int_{\pi}^{2\pi} 1\,dx \\
-        &= \left[\frac{x^3}{3}\right]_{-1}^{0} 
-          + \left[-\cos x\right]_{0}^{\pi} 
+        &= \left[\frac{x^3}{3}\right]_{-1}^{0}
+          + \left[-\cos x\right]_{0}^{\pi}
           + \left[x\right]_{\pi}^{2\pi} \\
-        &= \left(0 - \left(-\frac{1}{3}\right)\right) 
-          + \left(-\cos \pi + \cos 0\right) 
+        &= \left(0 - \left(-\frac{1}{3}\right)\right)
+          + \left(-\cos \pi + \cos 0\right)
           + \left(2\pi - \pi\right) \\
         &= \frac{1}{3} + (1 + 1) + \pi \\
         &= \frac{1}{3} + 2 + \pi
@@ -144,7 +145,7 @@
 
 
 
-    
+
 
 
 \end{lbt}

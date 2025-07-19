@@ -361,7 +361,7 @@
       :: 2^{n+1} &= 2 cdot 2^n
       ::         &> 2 cdot n^2                    && text {(by assumption)}
       ::         &= n^2 + ◊half n^2 + ◊half n^2
-      ::         &> n^2 + 2n + 1                  && text {(reader to confirm)} \tag{*}
+      ::         &> n^2 + 2n + 1                  && text {(reader to confirm)}  \tag{*}
       ::         &= (n+1)^2
 
       TEXT The reader who is interested in tackling (*) might like to consider how we know that $◊half n^2 > 2n$ and $◊half n^2 > 1$.
@@ -379,7 +379,7 @@
       :: 2^{n+1} &= 2 cdot 2^n
       ::         &> 2 cdot n^2                   && text {(by assumption)}
       ::         &= n^2 + ◊half n^2 + ◊half n^2  \qquad && text {}
-      ::         &> n^2 + 2n + 1                 && text {(reader to confirm)} \tag{*}
+      ::         &> n^2 + 2n + 1                 && text {(reader to confirm)}  \tag{*}
       ::         &= (n+1)^2
 
       TEXT The reader who\dots
@@ -409,9 +409,8 @@
     LATEX \FloatBarrier
     SUBSECTION Incorporating lines of text
 
-    TEXT Sometimes you want to interrupt a sequence of aligned equations to provide a line or even paragraph of commentary. This is achieved with the ◊amsmath command ◊intertext or (if tighter vertical spacing is desired) the ◊mathtools command ◊shortintertext. In ◊lbt you can use these as you would in plain Latex, or you can use the more ◊lbt-ish versions \code{TEXT} and \code{SHORTTEXT}. \cref{ex:math-align-intertext-1} demonstrates.
+    TEXT Sometimes you want to interrupt a sequence of aligned equations to provide a line or even paragraph of commentary. This is achieved with the ◊amsmath command ◊intertext or (if tighter vertical spacing is desired) the ◊mathtools command ◊shortintertext. In ◊lbt you can use these as you would in plain Latex, or you can use the more ◊lbt-ish versions \code{TEXT} and \code{SHORTTEXT}. \cref{ex:math-align-intertext} demonstrates.
 
-    CTRL microdebug :: on
     LBTEXAMPLE .o vertical
     :: (label) ex:math-align-intertext
     :: (caption) Including a line of text amidst an aligned block
@@ -427,6 +426,8 @@
       :: TEXT Finally, divide both sides by $1-r$ (assuming $r \neq 1$):
       ::         S_n &= frac {a(1 - r^n)} {1 - r}
     >>
+
+    NOTE It would be good to demonstrate \code{SHORTTEXT} as well.
 
     % ------------------------------------------------------------ align: 6
     LATEX \FloatBarrier
