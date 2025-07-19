@@ -53,7 +53,7 @@
     :: there are several logical equations to be displayed reasonably with alignment (\code{align});
     :: there are more complicated alignment requirements, perhaps involving comments to the side (also \code{align}).
     TEXT
-    :: Based on that, the author can choose an ◊amsmath environment, which are demonstrated in \cref{table:amsmath-envs}. The table does not show \emph{all} available environments, but it gives a good overview for readers who are not already familiar.
+    :: Based on that, the author can choose an ◊amsmath environment, which are demonstrated in \vref{table:amsmath-envs}. The table does not show \emph{all} available environments, but it gives a good overview for readers who are not already familiar.
     :: The sections of this chapter give more detailed information on these environments and more.
 
     NOTE In normal Latex code, equations are numbered by default. If you use the \code{align} environment then all lines are numbered. If you use \code{align*} then none of them are. \par \indent ◊lbt is similar: use \code{MATH} to get numbered equations and \code{MATH*} to suppress numbereding. If you want unnumbered equations by default, set the oparg \code{MATH.eqnum = false}.
@@ -85,7 +85,7 @@
     SECTION Simple equations with \code{MATH (.o equation)}
 
     TEXT
-    :: The ◊equation environment provides for a simple numbered equation. \cref{ex:math-equation} demonstrates this in ◊lbt. ◊equation is in fact the default environment, so you can just write \code{MATH F = ma}, as the example shows.
+    :: The ◊equation environment provides for a simple numbered equation. \vref{ex:math-equation} demonstrates this in ◊lbt. ◊equation is in fact the default environment, so you can just write \code{MATH F = ma}, as the example shows.
 
     LBTEXAMPLE .o horizontal, reseteqnum
     :: (label) ex:math-equation
@@ -107,7 +107,7 @@
     SECTION Long equations with \code{MATH .o multiline}
 
     TEXT
-    :: If an equation is too long for one line, you can insert linebreaks and the \package{amsmath} environment ◊multline will handle formatting with a mixture of left, center and right justification. \cref{ex:math-multiline} demonstrates.
+    :: If an equation is too long for one line, you can insert linebreaks and the \package{amsmath} environment ◊multline will handle formatting with a mixture of left, center and right justification. \vref{ex:math-multiline} demonstrates.
     :: Both \code{MATH .o multiline} and \code{MATH .o multline} work, and do the same thing.
     :: Note that the example includes the oparg \code{sm = false} to disable ◊simplemath. This is necessary to prevent \code{be} from being rendered as \sm{be}.
 
@@ -128,8 +128,8 @@
     SECTION \code{gather}
 
     TEXT
-    :: If you have a few equations that you want to display at once, and aren't too fussed about how they are presented, then you ◊gather them and they will each be centered and numbered. Two examples suffice. \cref{ex:math-gather-1} demonstrates the default numbering. \cref{ex:math-gather-2} demonstrates selective numbering. If you want no numbering, just use \code{MATH*}.
-    :: Note that the first example (\cref{ex:math-gather-1}) demonstrates the oparg \code{linespace}, which provides some extra space between the lines.
+    :: If you have a few equations that you want to display at once, and aren't too fussed about how they are presented, then you ◊gather them and they will each be centered and numbered. Two examples suffice. \vref{ex:math-gather-1} demonstrates the default numbering. \vref{ex:math-gather-2} demonstrates selective numbering. If you want no numbering, just use \code{MATH*}.
+    :: Note that the first example (\vref{ex:math-gather-1}) demonstrates the oparg \code{linespace}, which provides some extra space between the lines.
 
     LBTEXAMPLE .o vertical
     :: (label) ex:math-gather-1
@@ -159,7 +159,7 @@
 
     TEXT
     :: Using ◊gathered instead of ◊gather, you can gather some equations into one logical object, and place that inside of ◊equation (or another display environment) to assign an equation number. In addition to ◊amsmath's ◊gathered, ◊mathtools provides ◊lgathered and ◊rgathered, which justify the equations left or right within the centered block.
-    :: ◊lbt provides ◊eqgathered and ◊eqlgathered and ◊eqrgathered as composite environments which wrap the building-block inside ◊equation. These are likely to be of only niche interest. \cref{ex:math-gather-3} and \cref{ex:math-gather-4} demonstrate these environments. Note the way they assign only one equation number.
+    :: ◊lbt provides ◊eqgathered and ◊eqlgathered and ◊eqrgathered as composite environments which wrap the building-block inside ◊equation. These are likely to be of only niche interest. \vref{ex:math-gather-3} and \vref{ex:math-gather-4} demonstrate these environments. Note the way they assign only one equation number.
 
     LBTEXAMPLE .o vertical
     :: (label) ex:math-gather-3
@@ -197,7 +197,7 @@
     TEXT
     :: However, ◊split is a sub-environment that can only occur within a display environment like ◊equation or ◊gather or ◊align. The most common use would be for a ◊split appear alone in an ◊equation environment, so ◊lbt provides \code{MATH .o eqsplit} for that purpose.
     :: An ◊eqsplit equation gets one number overall, not one number per line, because it is one logical equation. It is the ◊equation environment that provides the number, not the ◊split environment contained within.
-    :: \cref{ex:math-eqsplit-1} demonstrates an unnumbered split equation that is aligned on $=$ and~$>$. \cref{ex:math-eqsplit-2} shows a split equation that is numbered and referenced.
+    :: \vref{ex:math-eqsplit-1} demonstrates an unnumbered split equation that is aligned on $=$ and~$>$. \vref{ex:math-eqsplit-2} shows a split equation that is numbered and referenced.
 
     LBTEXAMPLE .o horizontal, position = htbp
     :: (label) ex:math-eqsplit-1
@@ -213,7 +213,7 @@
       ::         &= (n+1)^2
     >>
 
-    TEXT Note that it could be desirable to add aligned comments to the right of each line in \cref{ex:math-eqsplit-1}. Unfortunately that is not possible with ◊eqsplit (or the underlying ◊split). Later, in \cref{sec:math-align}, this example will be revisited using the more flexible ◊align. However, ◊align emits one equation number per line, because it sees each line as a separate equation. So it is not a perfect match for providing side-by-side commentary, but it can be adapted to the task.
+    TEXT Note that it could be desirable to add aligned comments to the right of each line in \vref{ex:math-eqsplit-1}. Unfortunately that is not possible with ◊eqsplit (or the underlying ◊split). Later, in \vref{sec:math-align}, this example will be revisited using the more flexible ◊align. However, ◊align emits one equation number per line, because it sees each line as a separate equation. So it is not a perfect match for providing side-by-side commentary, but it can be adapted to the task.
 
     LBTEXAMPLE .o horizontal, position = htbp
     :: (label) ex:math-eqsplit-2
@@ -234,7 +234,7 @@
     :: \code{align} and \code{alignat} and \code{flalign}
 
     TEXT
-    :: The \package{amsmath} environments ◊align and its variants are supported directly by \code{MATH .o align} and friends to produce mathematical output using specified alignment points. Note that ◊split (\cref{sec:eqsplit}) does this as well, but it only allows one alignment point per line. ◊align and ◊alignat allow as many alignment points as you wish.
+    :: The \package{amsmath} environments ◊align and its variants are supported directly by \code{MATH .o align} and friends to produce mathematical output using specified alignment points. Note that ◊split (\vref{sec:eqsplit}) does this as well, but it only allows one alignment point per line. ◊align and ◊alignat allow as many alignment points as you wish.
     :: The difference between ◊align and the others is as follows:
     ITEMIZE .o compact
     :: ◊align determines the horizontal spacing between alignment columns itself, while centering the material overall;
@@ -247,7 +247,7 @@
     SUBSECTION Presenting a group of equations with simple alignment
 
     TEXT
-    :: The mathematical content in \cref{ex:math-align-1}, \cref{ex:math-align-2} and \cref{ex:math-align-3} is the same, but different numbering choices are demonstrated.
+    :: The mathematical content in \vref{ex:math-align-1}, \vref{ex:math-align-2} and \vref{ex:math-align-3} is the same, but different numbering choices are demonstrated.
     :: These examples use only one alignment point, so the material could technically be typeset by ◊eqsplit. This would be the wrong logical choice, however, because these are three equations, not one. Accordingly, ◊align produces (up to) three equation numbers whereas ◊eqsplit would only produce one.
 
     LBTEXAMPLE .o vertical
@@ -272,7 +272,7 @@
       ::        c^2 &= a^2 + b^2
     >>
 
-    TEXT \cref{ex:math-align-3} shows a special feature of ◊MATH: selective numbering. In ordinary Latex, you use \Verb|\notag| on any line you do not want numbered. (You can do that in ◊MATH too if you wish.) The ◊MATH oparg \code{eqnum} gives you convenient control over which lines are numbered, without editing the lines themselves.
+    TEXT \vref{ex:math-align-3} shows a special feature of ◊MATH: selective numbering. In ordinary Latex, you use \Verb|\notag| on any line you do not want numbered. (You can do that in ◊MATH too if you wish.) The ◊MATH oparg \code{eqnum} gives you convenient control over which lines are numbered, without editing the lines themselves.
 
     LBTEXAMPLE .o vertical
     :: (label) ex:math-align-3
@@ -289,7 +289,7 @@
     LATEX \FloatBarrier
     SUBSECTION Aligning equations in multiple columns
 
-    TEXT Suppose you wanted to demonstrate three kinds of derivative: polynomial, trigonometric and exponential. And you wanted to do so in minimal vertical space. Then you might typeset something like \cref{ex:math-align-multi-1}.
+    TEXT Suppose you wanted to demonstrate three kinds of derivative: polynomial, trigonometric and exponential. And you wanted to do so in minimal vertical space. Then you might typeset something like \vref{ex:math-align-multi-1}.
 
     LBTEXAMPLE .o vertical
     :: (label) ex:math-align-multi-1
@@ -300,7 +300,7 @@
       :: f'(x) &= 6x^2 - 14x + 4       & g'(x) &= 2cos(2x) - sec2x & h'(x) &= 3^x\:ln 3
     >>
 
-    TEXT The space between the \qq{columns} is determined by the ◊amsmath package -- see the relevant documentation for details. If you want to really spread things out, you can use ◊flalign, which uses the \qq{full length} of the page, as shown in \cref{ex:math-align-multi-2}.
+    TEXT The space between the \qq{columns} is determined by the ◊amsmath package -- see the relevant documentation for details. If you want to really spread things out, you can use ◊flalign, which uses the \qq{full length} of the page, as shown in \vref{ex:math-align-multi-2}.
 
     LBTEXAMPLE .o vertical
     :: (label) ex:math-align-multi-2
@@ -311,7 +311,7 @@
       :: f'(x) &= 6x^2 - 14x + 4       & g'(x) &= 2cos(2x) - sec2x & h'(x) &= 3^x\:ln 3
     >>
 
-    TEXT And if you want to determine your own spacing, you can: the ◊alignat environment gives the author that control. \cref{ex:math-align-multi-3} demonstrates the use of \Verb|\qquad| to separate the two columns. When you use ◊alignat, you need to provide the oparg \code{ncols} to specify how many columns there are.\footnote{Note that in this example, there are two columns and $2(2)-1=3$ ampersands per line. It is helpful to keep this relationship in mind.}
+    TEXT And if you want to determine your own spacing, you can: the ◊alignat environment gives the author that control. \vref{ex:math-align-multi-3} demonstrates the use of \Verb|\qquad| to separate the two columns. When you use ◊alignat, you need to provide the oparg \code{ncols} to specify how many columns there are.\footnote{Note that in this example, there are two columns and $2(2)-1=3$ ampersands per line. It is helpful to keep this relationship in mind.}
 
     LBTEXAMPLE .o vertical
     :: (label) ex:math-align-multi-3
@@ -328,7 +328,7 @@
     LATEX \FloatBarrier
     SUBSECTION Improving the display of a single long equation
 
-    TEXT Earlier, we saw how ◊multiline can be used to manually break up an equation that doesn't fit on one line. The mixed-justification formatting that ◊multiline applies may suit some equations but not others. If you prefer a left-justified equation as shown in \cref{ex:math-align-multiline-1}, this can be achieved with ◊alignat and a single column. Note the use of \Verb|\MoveEqLeft| from the \package{mathtools} package to place the first line correctly. Also note the use of \Verb|\phantom{=\ }| to align the continuation lines nicely.
+    TEXT Earlier, we saw how ◊multiline can be used to manually break up an equation that doesn't fit on one line. The mixed-justification formatting that ◊multiline applies may suit some equations but not others. If you prefer a left-justified equation as shown in \vref{ex:math-align-multiline-1}, this can be achieved with ◊alignat and a single column. Note the use of \Verb|\MoveEqLeft| from the \package{mathtools} package to place the first line correctly. Also note the use of \Verb|\phantom{=\ }| to align the continuation lines nicely.
 
     LBTEXAMPLE .o vertical
     :: (label) ex:math-align-multiline-1
@@ -349,7 +349,7 @@
     LATEX \FloatBarrier
     SUBSECTION Providing comments to the right
 
-    TEXT It is common that an author wants to write some brief commentary to the right of a line of working in a multi-step equation. We can achieve this using ◊align with two columns, as \cref{ex:math-align-commentary-1} demonstrates.
+    TEXT It is common that an author wants to write some brief commentary to the right of a line of working in a multi-step equation. We can achieve this using ◊align with two columns, as \vref{ex:math-align-commentary-1} demonstrates.
 
     LBTEXAMPLE .o vertical, position = htbp
     :: (label) ex:math-align-commentary-1
@@ -367,7 +367,7 @@
       TEXT The reader who is interested in tackling (*) might like to consider how we know that $◊half n^2 > 2n$ and $◊half n^2 > 1$.
     >>
 
-    TEXT The inter-column spacing in \cref{ex:math-align-commentary-1} is too large, so we assert manual control using ◊alignat, as shown in \cref{ex:math-align-commentary-2}. Note that we insert a \Verb|\qquad| in the \emph{longest} line of working.
+    TEXT The inter-column spacing in \vref{ex:math-align-commentary-1} is too large, so we assert manual control using ◊alignat, as shown in \vref{ex:math-align-commentary-2}. Note that we insert a \Verb|\qquad| in the \emph{longest} line of working.
 
     LBTEXAMPLE .o vertical, position = htbp
     :: (label) ex:math-align-commentary-2
@@ -387,7 +387,7 @@
 
     TEXT
     :: In these examples we have been typesetting a single multi-step equation (for which ◊split is designed) using ◊align, which is designed for multiple logical equations. It is perhaps a shame that the ◊amsmath package does not support this use-case---providing commentary on a split equation---more directly.
-    :: Having said that, there is the option to use ◊alignedat, instead of ◊alignat, and place that inside ◊equation. ◊alignedat does the logical layout without doing any numbering, and ◊equation displays the result and assigns a number. ◊lbt supports this combination with ◊eqalignedat, as shown in \cref{ex:math-align-commentary-3}.
+    :: Having said that, there is the option to use ◊alignedat, instead of ◊alignat, and place that inside ◊equation. ◊alignedat does the logical layout without doing any numbering, and ◊equation displays the result and assigns a number. ◊lbt supports this combination with ◊eqalignedat, as shown in \vref{ex:math-align-commentary-3}.
 
     LBTEXAMPLE .o vertical, position = htbp
     :: (label) ex:math-align-commentary-3
@@ -409,7 +409,7 @@
     LATEX \FloatBarrier
     SUBSECTION Incorporating lines of text
 
-    TEXT Sometimes you want to interrupt a sequence of aligned equations to provide a line or even paragraph of commentary. This is achieved with the ◊amsmath command ◊intertext or (if tighter vertical spacing is desired) the ◊mathtools command ◊shortintertext. In ◊lbt you can use these as you would in plain Latex, or you can use the more ◊lbt-ish versions \code{TEXT} and \code{SHORTTEXT}. \cref{ex:math-align-intertext} demonstrates.
+    TEXT Sometimes you want to interrupt a sequence of aligned equations to provide a line or even paragraph of commentary. This is achieved with the ◊amsmath command ◊intertext or (if tighter vertical spacing is desired) the ◊mathtools command ◊shortintertext. In ◊lbt you can use these as you would in plain Latex, or you can use the more ◊lbt-ish versions \code{TEXT} and \code{SHORTTEXT}. \vref{ex:math-align-intertext} demonstrates.
 
     LBTEXAMPLE .o vertical
     :: (label) ex:math-align-intertext
@@ -439,7 +439,7 @@
 
     % ------------------------------------------------------------ Other environments
     LATEX \FloatBarrier
-    SECTION (label) sec:math-other :: \code{Other environments}
+    SECTION (label) sec:math-other :: Other environments
 
     SUBSECTION ◊split
     TEXT
@@ -456,15 +456,15 @@
 
     % ------------------------------------------------------------ Additional environments
     LATEX \FloatBarrier
-    SECTION (label) sec:math-additional :: \code{Additional environments}
+    SECTION (label) sec:math-additional :: Additional environments
 
     TEXT
-    :: ◊MATH's main \emph{raison d'être} is to provide convenient ◊lbt-style access to the ◊amsmath and ◊mathtools environments. However, two use cases demonstrated in \cref{ex:math-align-multiline-1} (allowing an equation to \qq{continue} over multiple lines) and \cref{ex:math-align-commentary-3} (providing neatly aligned \qq{commentary} to the right) have some boilerplate code that could be abstracted away. Thus ◊MATH provides the ◊continuation and ◊commentary psuedo-environments.
+    :: ◊MATH's main \emph{raison d'être} is to provide convenient ◊lbt-style access to the ◊amsmath and ◊mathtools environments. However, two use cases demonstrated in \vref{ex:math-align-multiline-1} (allowing an equation to \qq{continue} over multiple lines) and \vref{ex:math-align-commentary-3} (providing neatly aligned \qq{commentary} to the right) have some boilerplate code that could be abstracted away. Thus ◊MATH provides the ◊continuation and ◊commentary psuedo-environments.
     :: The two examples cited above are reproduced inline in the subsections below, for convenience, to provide an easy comparison between the ◊amsmath-style approach and the ◊lbt-style approach.
 
     SUBSECTION ◊continuation
 
-    TEXT \cref{ex:math-align-multiline-1} demonstrated a long equation continuing over several lines with left justification and attention to alignment. The example is reproduced below for convenvience.
+    TEXT \vref{ex:math-align-multiline-1} demonstrated a long equation continuing over several lines with left justification and attention to alignment. The example is reproduced below for convenvience.
 
     LBTEXAMPLE .o vertical, float = false, pre = 1ex, post = 1ex
     :: .v <<
@@ -477,7 +477,7 @@
       ::      &◊ph + r_1r_2r_3r_4
     >>
 
-    TEXT ◊MATH provides a ◊continuation option that allows the same result to be achieved more easily, relieving authors of the need to be experts in \code{phantom} and \code{MoveEqLeft}. It is demonstrated in \cref{ex:math-continuation}.
+    TEXT ◊MATH provides a ◊continuation option that allows the same result to be achieved more easily, relieving authors of the need to be experts in \code{phantom} and \code{MoveEqLeft}. It is demonstrated in \vref{ex:math-continuation}.
 
     LBTEXAMPLE .o vertical
     :: (label) ex:math-continuation
@@ -497,7 +497,7 @@
 
     SUBSECTION ◊commentary
 
-    TEXT \cref{ex:math-align-commentary-1} demonstrated a multi-line equation with some commentary to the right. It is reproduced below for convenience, with an equation number appended this time.
+    TEXT \vref{ex:math-align-commentary-1} demonstrated a multi-line equation with some commentary to the right. It is reproduced below for convenience, with an equation number appended this time.
 
     LBTEXAMPLE .o vertical, float = false, pre = 1ex, post = 1ex
     :: .v <<
@@ -510,7 +510,7 @@
       ::         &= (n+1)^2
     >>
 
-    TEXT ◊MATH provides a ◊commentary option that allows the same result to be achieved more easily. It is demonstrated in \cref{ex:math-commentary}. The author is relieved of the burden of recalling ◊alignat syntax, and the comments will be aligned sympathetically with the longest expression without needing to control that manually.
+    TEXT ◊MATH provides a ◊commentary option that allows the same result to be achieved more easily. It is demonstrated in \vref{ex:math-commentary}. The author is relieved of the burden of recalling ◊alignat syntax, and the comments will be aligned sympathetically with the longest expression without needing to control that manually.
 
     LBTEXAMPLE .o vertical, position = htbp
     :: (label) ex:math-commentary

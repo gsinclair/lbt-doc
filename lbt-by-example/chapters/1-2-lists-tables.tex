@@ -19,7 +19,7 @@
     % ----------------------------------------------- Itemized and enumerated lists
     SECTION Itemized and enumerated lists
 
-    TEXT The paragraphs in \cref{ex:basic-text} would be better written as a list. \cref{ex:listtable-list-1} shows the chess quotes in an itemized list. \cref{ex:listtable-list-2} enumerates some principles of chess opening theory.
+    TEXT The paragraphs in \vref{ex:basic-text} would be better written as a list. \vref{ex:listtable-list-1} shows the chess quotes in an itemized list. \vref{ex:listtable-list-2} enumerates some principles of chess opening theory.
 
     LBTEXAMPLE .o vertical
     :: (caption) An itemized list
@@ -44,9 +44,9 @@
     >>
 
     TEXT
-    :: \code{ITEMIZE} and \code{ENUMERATE} use the \package{enumitem} package in the backgound. You can use the kwarg \code{spec} to pass options through to the underlying \code{itemize} or \code{enumerate} environment. Further, the oparg \code{compact} provides an easy way to tighten the list, as \cref{ex:listtable-list-3} demonstrates.
+    :: \code{ITEMIZE} and \code{ENUMERATE} use the \package{enumitem} package in the backgound. You can use the kwarg \code{spec} to pass options through to the underlying \code{itemize} or \code{enumerate} environment. Further, the oparg \code{compact} provides an easy way to tighten the list, as \vref{ex:listtable-list-3} demonstrates.
     :: You can also use opargs \code{notop} and \code{sep} to control vertical space in a more specific but still convenient way. See the documentation.
-    :: Finally, using \package{enumitem}'s \code{newlist} and \code{setlist} commands, you can define your own list style with the formatting you require. Suppose you now have a \code{shoppinglist} environment. You can make use of that with the \code{env} oparg. This is demonstrated in \cref{ex:listtable-list-custom}
+    :: Finally, using \package{enumitem}'s \code{newlist} and \code{setlist} commands, you can define your own list style with the formatting you require. Suppose you now have a \code{shoppinglist} environment. You can make use of that with the \code{env} oparg. This is demonstrated in \vref{ex:listtable-list-custom}
 
     LBTEXAMPLE .o vertical
     :: (caption) A compact enumerated list with custom label
@@ -83,7 +83,7 @@
     SECTION Automatic multi-level lists
 
     TEXT
-    :: If you want to typeset a multi-level list using standard Latex environments, you will end up with a lot of boilerplate. The \lbtlogo{} command \code{LIST} offers great convenience, as \cref{ex:listtable-list-multi} demonstrates.
+    :: If you want to typeset a multi-level list using standard Latex environments, you will end up with a lot of boilerplate. The \lbtlogo{} command \code{LIST} offers great convenience, as \vref{ex:listtable-list-multi} demonstrates.
     :: The markers chosen are not a great fit for the list content, but they show some of the possibilities. The \code{49} refers to the dingbats provided by the \package{pifont} package. See the documentation for more details.
 
     LBTEXAMPLE .o horizontal
@@ -115,9 +115,9 @@
     STO fn1 :: 1 :: If you really want \lbtlogo{} to support \package{tabularx} or something else, feel free to request it. Of course, you can implement it yourself, too.
     TEXT
     :: \lbtlogo{} makes an opinionated choice that tables are best set using \package{tabularray}.\footnote{◊fn1} The \code{TABLE} command is a light layer over a \code{tblr} environment. You provide all the specifications (details of column alignment and cell formatting) in the mandatory \code{spec} kwarg.
-    :: \cref{ex:listtable-table-1} shows left, center and right column alignment, and bold top-row headings, and a horizontal line between the headings and the data. This is a very simple table.
-    :: \cref{ex:listtable-table-2} improves on the above by using the \package{booktabs} library to gain access to \latexcmd{toprule}, \latexcmd{midrule} and \latexcmd{bottomrule}. It also introduces some padding to the third column, and increases the row separation.
-    :: Most tables created with Latex are for displaying information in articles or books. But tables can be used for other purposes, such as educational handouts. \cref{ex:listtable-table-3} demonstrates the use of space (setting column widths and row heights) and background colour. It also puts most cells in math mode, and shows all borders.
+    :: \vref{ex:listtable-table-1} shows left, center and right column alignment, and bold top-row headings, and a horizontal line between the headings and the data. This is a very simple table.
+    :: \vref{ex:listtable-table-2} improves on the above by using the \package{booktabs} library to gain access to \latexcmd{toprule}, \latexcmd{midrule} and \latexcmd{bottomrule}. It also introduces some padding to the third column, and increases the row separation.
+    :: Most tables created with Latex are for displaying information in articles or books. But tables can be used for other purposes, such as educational handouts. \vref{ex:listtable-table-3} demonstrates the use of space (setting column widths and row heights) and background colour. It also puts most cells in math mode, and shows all borders.
     :: It takes a bit of digging in the \package{tabularray} manual to find the right incantations to make all this happen, but ultimately it is easier to achieve the desired results with this package than with any other. And if you need multiple tables with the same format, it is easy to create your own table type with \latexcmd{NewTblrEnviron}. If you created an \code{invoice} table, for instance, you could invoke it with \code{TABLE .o invoice}.
 
     NOTE No attempt has been made so far to create tables with spanning cells. Whether any specific support from \lbtlogo{} is required remains to be seen.
@@ -126,7 +126,7 @@
 
     SUBSECTION Loading table data from a file
 
-    TEXT The \code{TABLE} command makes it easy to load CSV or TSV data from a file and use it as the rows of the table. \cref{ex:listtable-table-dataload} demonstrates this with cumulative normal distribution values, which are clearly better located in a data file than in a Latex file.
+    TEXT The \code{TABLE} command makes it easy to load CSV or TSV data from a file and use it as the rows of the table. \vref{ex:listtable-table-dataload} demonstrates this with cumulative normal distribution values, which are clearly better located in a data file than in a Latex file.
 
     LBTEXAMPLE .o vertical
     :: (caption) Simple table example

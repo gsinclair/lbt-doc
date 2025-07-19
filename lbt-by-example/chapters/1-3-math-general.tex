@@ -17,7 +17,7 @@
     :: The \code{vector} and \code{vectorijk} macro greatly simplify typing vectors.
     :: A collection of macros like \code{mathlistand}, \code{mathsum}, \code{mathseq} and several others provide a convenient way to type mathematical text like \qq{\mathlistand{a,b,c}} or \qq{\mathseq{y,1,2,3,...,n}}.
 
-    TEXT Also found in \package{lbt.Math} is the \code{MATH} command, which aids in the typesetting of display equations. It appears in \cref{ch.math-command}.
+    TEXT Also found in \package{lbt.Math} is the \code{MATH} command, which aids in the typesetting of display equations. It appears in \vref{ch.math-command}.
 
     % ------------------------------------------------------------ The simplemath macro
     SECTION The ◊simplemath macro
@@ -26,8 +26,8 @@
 
     TEXT
     :: The ◊simplemath macro stands in for \Verb|$ ... $| or \Verb|$$ .. $$| and allows your to type mathematical text succinctly. It recognises a lot of keywords and abbreviations, meaning far fewer backslashes are needed.
-    :: \cref{ex:math-sm-1} demonstrates the use of ◊simplemath in both math modes: inline and display. \cref{ex:math-sm-table} contains a large number of examples to show the variety of conveniences that ◊simplemath offers.
-    :: \cref{ex:math-sm-2} shows that brackets, both round and square, are auto-sized (that is, \Verb|\left| and \Verb|\right| are applied intelligently) and that \Verb|text{...}| (or \Verb|\text{...}|) is recognised specially, and passed through to Latex without processing its contents. Note, however, that braces (\Verb|{}|) are \emph{not} auto-sized.
+    :: \vref{ex:math-sm-1} demonstrates the use of ◊simplemath in both math modes: inline and display. \vref{ex:math-sm-table} contains a large number of examples to show the variety of conveniences that ◊simplemath offers.
+    :: \vref{ex:math-sm-2} shows that brackets, both round and square, are auto-sized (that is, \Verb|\left| and \Verb|\right| are applied intelligently) and that \Verb|text{...}| (or \Verb|\text{...}|) is recognised specially, and passed through to Latex without processing its contents. Note, however, that braces (\Verb|{}|) are \emph{not} auto-sized.
 
     LBTEXAMPLE .o vertical
     :: (caption) ◊simplemath usage, both inline and display form
@@ -73,7 +73,7 @@
     TEXT
     :: Typing integrals in regular Latex, or with ◊simplemath, is not exactly a chore. But there is room for simplification, and the \code{integral} macro allows for definite or easy typing indefinite (single, simple) integrals. If the first argument is \code{ds} then a \Verb|\displaystyle| is inserted.
     :: The resulting Latex code is wrapped in \Verb|\ensuremath{...}|, so integrals do not need to be inside a math environment.
-    :: \cref{ex:math-int-1} shows a definite and indefinite integral in context. \cref{ex:math-int-2} contains enough examples so that definite and indefinte are shown, as are normal style and display style.
+    :: \vref{ex:math-int-1} shows a definite and indefinite integral in context. \vref{ex:math-int-2} contains enough examples so that definite and indefinte are shown, as are normal style and display style.
 
     LBTEXAMPLE .o vertical
     :: (caption) The \code{integral} macro
@@ -103,7 +103,7 @@
     :: With the \code{vector} macro you can easily typeset \vecbold{a} and \vectilde{b} and \vecarrow{c}. Oh, and \V{DE} and \V{3 -7} and \V{row 4 0 9}. And finally, \V{ijk 2 -5 1} and \V{ijk -3 0 4}.
     :: One might choose to set up this macro as \Verb|\V| as follows:
     BOX \verb|\lbtDefineMacros{V = lbt.Math:vector}|
-    TEXT A thorough set of examples is given in \cref{ex:math-vector-table}.
+    TEXT A thorough set of examples is given in \vref{ex:math-vector-table}.
 
     EXAMPLETABLE .o mathmode
     :: (label) ex:math-vector-table
@@ -118,7 +118,7 @@
     :: \V{ijk 3 4 5}
 
     SUBSECTION Bold, tilde and arrow
-    TEXT Vectors are most commonly set in bold upright (\vecbold{a}), and that is the \lbtlogo{} default. You can, however, choose tilde (\vectilde{a}) or arrow (\vecarrow{a}) instead. \cref{ex:math-vector-formats-1} shows how to make these choices for your \lbtlogo{} expansion or your whole Latex document. If you want just a one-off, you can define and use the following macros. \cref{ex:math-vector-formats-2} demonstrates their use.
+    TEXT Vectors are most commonly set in bold upright (\vecbold{a}), and that is the \lbtlogo{} default. You can, however, choose tilde (\vectilde{a}) or arrow (\vecarrow{a}) instead. \vref{ex:math-vector-formats-1} shows how to make these choices for your \lbtlogo{} expansion or your whole Latex document. If you want just a one-off, you can define and use the following macros. \vref{ex:math-vector-formats-2} demonstrates their use.
     BOX
     :: \verb|\lbtDefineMacros{vecbold  = lbt.Math:vecbold}|
     :: \verb|\lbtDefineMacros{vectilde = lbt.Math:vectilde}|
@@ -173,7 +173,7 @@
     :: \mathseqproductcdot{a,1,2,...,N} & \myverb{$a_1 \cdot a_2 \cdot \dots \cdot a_N$}
 
     TEXT
-    :: ◊lbt offers some macros to make entering such things more convenient, which are demonstrated in \cref{ex:math-sequence-macros}. See \cref{sec:math-set-up-macros} for code to include in your preamble to gain access to these macros.
+    :: ◊lbt offers some macros to make entering such things more convenient, which are demonstrated in \vref{ex:math-sequence-macros}. See \vref{sec:math-set-up-macros} for code to include in your preamble to gain access to these macros.
 
     EXAMPLETABLE
     :: (label) ex:math-sequence-macros
@@ -199,7 +199,7 @@
 
     TEXT
     :: ◊lbt offers some other macros that bring convenience to certain tasks in mathematical typesetting.
-    :: Currently the only such macro is \code{primefactorisation}, which is demonstrated in \cref{ex:math-primefac}.
+    :: Currently the only such macro is \code{primefactorisation}, which is demonstrated in \vref{ex:math-primefac}.
 
     EXAMPLETABLE
     :: (label) ex:math-primefac
@@ -213,7 +213,7 @@
     SECTION (label) sec:math-set-up-macros :: Code to set up all macros
 
     TEXT
-    :: As a convenience, \cref{ex:math-macros-setup} contains the code that you can paste into your preamble to obtain access to all macros described in this chapter. They are grouped for readability.
+    :: As a convenience, \vref{ex:math-macros-setup} contains the code that you can paste into your preamble to obtain access to all macros described in this chapter. They are grouped for readability.
 
     LBTEXAMPLE .o output = 0
     :: (label) ex:math-macros-setup

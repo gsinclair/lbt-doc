@@ -14,12 +14,12 @@
     :: things you expect in normal Latex editing, whether built in or using a common plugin (columns, verbatim, various math environments)
     :: things that are generally useful (include PDF pages, three levels of headings, place two items side-by-side)
 
-    TEXT It also implements lists and tables, which are demonstrated in \cref{ch:liststables}.
+    TEXT It also implements lists and tables, which are demonstrated in \vref{ch:liststables}.
 
     % ------------------------------------------------------------ Document divisions
     SECTION Document divisions
 
-    TEXT All the Latex commands are present. We present \code{CHAPTER} and \code{SECTION} in \cref{ex:basic-divisions}, but don't show the typeset results as we don't want to affect the chapter of this book!
+    TEXT All the Latex commands are present. We present \code{CHAPTER} and \code{SECTION} in \vref{ex:basic-divisions}, but don't show the typeset results as we don't want to affect the chapter of this book!
 
     LBTEXAMPLE .o vertical, output = 1
     :: (caption) Chapters, sections and plain text paragraphs
@@ -53,7 +53,7 @@
       TEXT an early world champion.
     >>
 
-    TEXT Other low-level formatting commands include \code{CLEARPAGE} and \code{VFILL}, both of which are hard to demonstrate, but predictable. Finally, there is \code{VSTRETCH}, which helps spread items out vertically. For example, \cref{ex:basic-vstretch} spreads out three (very short) paragraphs to fill a page, and allocates more whitespace in the middle than the other two.
+    TEXT Other low-level formatting commands include \code{CLEARPAGE} and \code{VFILL}, both of which are hard to demonstrate, but predictable. Finally, there is \code{VSTRETCH}, which helps spread items out vertically. For example, \vref{ex:basic-vstretch} spreads out three (very short) paragraphs to fill a page, and allocates more whitespace in the middle than the other two.
 
     LBTEXAMPLE .o float, output = 0
     :: (caption) Using \code{VSTRETCH} to spread out paragraphs on a page
@@ -77,7 +77,7 @@
     % ----------------------------------------------- Margins and justification
     SECTION Margins and justification
 
-    TEXT \cref{ex:basic-margins} demonstrates \code{INDENT}, which adjusts the left and right margin using the \code{adjustwidth} environment from the \code{changepage} package. The first argument defines the inward margin for left and right margins. (Note that the right margin adjustment defaults to zero.) The second argument is the text.
+    TEXT \vref{ex:basic-margins} demonstrates \code{INDENT}, which adjusts the left and right margin using the \code{adjustwidth} environment from the \code{changepage} package. The first argument defines the inward margin for left and right margins. (Note that the right margin adjustment defaults to zero.) The second argument is the text.
 
     LBTEXAMPLE .o vertical
     :: (caption) Using \code{INDENT} to adjust left and (optionally) right margins
@@ -88,7 +88,7 @@
       INDENT 6cm :: However little known the feelings or views of such a man may be on his first entering a neighbourhood, this truth is so well fixed in the minds of the surrounding families, that he is considered as the rightful property of some one or other of their daughters.
     >>
 
-    TEXT \cref{ex:basic-justification} demonstrates \code{FLUSHLEFT}, \code{FLUSHRIGHT} and \code{CENTER}, which affect the justification of the contained paragraph(s). Incidentally, it also demonstrates \code{STO}, which saves (\qq{stores}) some content for a limited amount of time. For more information about \code{STO}, see \cref{ex:sto}.
+    TEXT \vref{ex:basic-justification} demonstrates \code{FLUSHLEFT}, \code{FLUSHRIGHT} and \code{CENTER}, which affect the justification of the contained paragraph(s). Incidentally, it also demonstrates \code{STO}, which saves (\qq{stores}) some content for a limited amount of time. For more information about \code{STO}, see \vref{ex:sto}.
     NOTE There is not currently an example for \code{STO}.
 
     LBTEXAMPLE .o vertical
@@ -117,7 +117,7 @@
     TEXT
     :: The \code{LATEX} command is simple: it allows you to pass plain Latex code through to the compiler. This is already achievable with the \code{TEXT} or \code{TEXT*} command, but the name \code{LATEX} better represents the intention.
     :: Recall\footnote{\lbtNote{This is not actually documented anywhere yet}} that \code{CMD} exists for single commands, so cases like \code{CMD bigskip} are already taken care of. Assuming, then, that you want to pass something more complicated through to Latex, the idiomatic way is to use the \code{.v << ... >>} verbatim block, which allows you to include newlines in your code.
-    :: \cref{ex:basic-latex-math} demonstrates typesetting some complex mathematics among some text. Note that \code{MATH} could handle the mathematics just fine, but the example serves to show the purpose of \code{LATEX}.
+    :: \vref{ex:basic-latex-math} demonstrates typesetting some complex mathematics among some text. Note that \code{MATH} could handle the mathematics just fine, but the example serves to show the purpose of \code{LATEX}.
 
     LBTEXAMPLE .o vertical
     :: (caption) Passing Latex code through with \code{LATEX}
