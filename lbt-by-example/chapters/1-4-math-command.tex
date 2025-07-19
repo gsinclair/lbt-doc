@@ -455,7 +455,7 @@
 
     % ------------------------------------------------------------ Additional environments
     LATEX \FloatBarrier
-    SECTION (label) sec:math-other :: \code{Additional environments}
+    SECTION (label) sec:math-additional :: \code{Additional environments}
 
     TEXT
     :: ◊MATH's main \emph{raison d'être} is to provide convenient ◊lbt-style access to the ◊amsmath and ◊mathtools environments. However, two use cases demonstrated in \cref{ex:math-align-multiline-1} (allowing an equation to \qq{continue} over multiple lines) and \cref{ex:math-align-commentary-3} (providing neatly aligned \qq{commentary} to the right) have some boilerplate code that could be abstracted away. Thus ◊MATH provides the ◊continuation and ◊commentary psuedo-environments.
@@ -465,7 +465,7 @@
 
     TEXT \cref{ex:math-align-multiline-1} demonstrated a long equation continuing over several lines with left justification and attention to alignment. The example is reproduced below for convenvience.
 
-    LBTEXAMPLE .o vertical, float = false
+    LBTEXAMPLE .o vertical, float = false, pre = 1ex, post = 1ex
     :: .v <<
       STO ph :: 1 :: \phantom{=\ }
       MATH .o alignat, ncols = 1, eqnum = 5
@@ -490,7 +490,46 @@
       ::   + r_1r_2r_3r_4
     >>
 
-    TEXT The code produced behind the scenes is the same as the code demonstrated above, using ◊alignat and \code{MoveEqLeft} and \code{phantom}.
+    TEXT
+    :: The code produced behind the scenes is the same as the code demonstrated above, using ◊alignat and \code{MoveEqLeft} and \code{phantom}.
+    :: Note that when using \code{MATH .o continuation}, an equation number is applied to the final line. Naturally, the equation number is suppressed if \code{MATH*} is used.
+
+    SUBSECTION ◊commentary
+
+    TEXT \cref{ex:math-align-commentary-1} demonstrated a multi-line equation with some commentary to the right. It is reproduced below for convenience, with an equation number appended this time.
+
+    LBTEXAMPLE .o vertical, float = false, pre = 1ex, post = 1ex
+    :: .v <<
+      STO half :: 2 :: $\tfrac 1 2$
+      MATH .o alignat, ncols = 2, eqnum = 5
+      :: 2^{n+1} &= 2 cdot 2^n
+      ::         &> 2 cdot n^2                   && text {(by assumption)}
+      ::         &= n^2 + ◊half n^2 + ◊half n^2  \qquad && text {}
+      ::         &> n^2 + 2n + 1                 && text {(reader to confirm)}  \tag{*}
+      ::         &= (n+1)^2
+    >>
+
+    TEXT ◊MATH provides a ◊commentary option that allows the same result to be achieved more easily. It is demonstrated in \cref{ex:math-commentary}. The author is relieved of the burden of recalling ◊alignat syntax, and the comments will be aligned sympathetically with the longest expression without needing to control that manually.
+
+    LBTEXAMPLE .o vertical, position = htbp
+    :: (label) ex:math-commentary
+    :: (caption) ◊commentary supporting aligned text to the right of the multi-line equation
+    :: .v <<
+      STO half :: 2 :: $\tfrac 1 2$
+      MATH .o commentary
+      :: 2^{n+1} &= 2 cdot 2^n
+      ::         &> 2 cdot n^2                    | (by assumption)
+      ::         &= n^2 + ◊half n^2 + ◊half n^2
+      ::         &> n^2 + 2n + 1                  | (reader to confirm)  \tag{*}
+      ::         &= (n+1)^2
+    >>
+
+    TEXT
+    :: To use ◊commentary, the \Verb+|+ symbol must be preceded by at least two spaces, so that it can be distinguished from a mathematical use of the same symbol. Naturally, a greater amount of space will produce more readable input text. A trailing \Verb|\tag{...}| command is detected and treated separately from the comment.
+    :: Note that alignment markers must be provided in ◊commentary, whereas they are automatic in ◊continuation.
+    NOTE This inconsistency (automatic vs manual alignment markers) may be removed in time, once these environments see more real use.
+    TEXT
+    :: Like with ◊continuation, \code{MATH .o commentary} will apply an equation number to the final line, and \code{MATH*} will suppress it.
 
     % ------------------------------------------------------------ Combinations
     LATEX \FloatBarrier
